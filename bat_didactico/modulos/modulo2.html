@@ -6,6 +6,133 @@
     <title>Módulo IPCONFIG</title>
     <link rel="stylesheet" href="../styles.css">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ded0d07e;
+        }
+
+        /* Estilos del banner */
+        .banner {
+            background-color: #f7f7f7;
+            /* Color blanco pastel */
+            color: #333;
+            /* Color de texto oscuro */
+            position: relative;
+            padding: 10px 10px;
+            /* Espaciado interno reducido */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Espacio entre los elementos */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Sombra */
+        }
+
+        /* Estilos del banner */
+        .banner {
+            background-color: #f7f7f7;
+            /* Color blanco pastel */
+            color: #333;
+            /* Color de texto oscuro */
+            position: relative;
+            padding: 5px 0px;
+            /* Espaciado interno */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Espacio entre los elementos */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Sombra */
+        }
+
+        /* Estilos de los logos */
+        .banner .logo {
+            height: 40px;
+            /* Tamaño del logo */
+            padding: 0 15px;
+            /* Espaciado interno horizontal */
+        }
+
+        .logomenu {
+            display: flex;
+            align-items: center;
+        }
+
+        .logos {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            /* Empuja los logos a la derecha */
+        }
+
+        .logos img {
+            margin-right: 10px;
+            /* Espacio entre los logos */
+        }
+
+        .logos img:last-child {
+            margin-right: 20px;
+            /* Asegura que el último logo no esté pegado al borde derecho */
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            /* Reduce el tamaño de la fuente */
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content,
+        .dropdown-content-sub {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a,
+        .dropdown-content-sub a {
+            color: black;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 12px;
+            /* Reduce el tamaño de la fuente */
+        }
+
+        .dropdown-content a:hover,
+        .dropdown-content-sub a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-submenu:hover .dropdown-content-sub {
+            display: block;
+        }
+
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-content-sub {
+            top: 0;
+            left: 100%;
+        }
         /* Estilos adicionales específicos para el módulo IPCONFIG */
         .example-selector {
             margin-bottom: 20px;
@@ -95,13 +222,15 @@
                 <a href="/aplicativo-bat/bat_didactico/modulos/modulo3.html">Icacls</a>
                 <a href="/aplicativo-bat/bat_didactico/modulos/modulo4.html">Logman</a>
                 <a href="/aplicativo-bat/bat_didactico/modulos/modulo5.html">Findstr</a>
-                <a href="/aplicativo-bat/bat_didactico/modulos/modulo6.html">Msdt</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo6.html">Color</a>
                 <a href="/aplicativo-bat/bat_didactico/modulos/modulo7.html">Schtasks</a>
                 <a href="/aplicativo-bat/bat_didactico/modulos/modulo8.html">Tasklist</a>
                 <a href="/aplicativo-bat/bat_didactico/modulos/custom.html">Generar BAT</a>
             </div>
         </div>
-        <div class="logo">
+        <div class="logos">
+            <img src="../ufps.png" alt="Logo" class="logo">
+
             <img src="../logo.png" alt="Logo" class="logo">
         </div>
     </div>

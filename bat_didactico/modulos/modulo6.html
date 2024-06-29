@@ -6,6 +6,116 @@
     <title>Módulo MSDT</title>
     <link rel="stylesheet" href="../styles.css">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ded0d07e;
+        }
+
+        /* Estilos del banner */
+        .banner {
+            background-color: #f7f7f7;
+            /* Color blanco pastel */
+            color: #333;
+            /* Color de texto oscuro */
+            position: relative;
+            padding: 5px 0px;
+            /* Espaciado interno */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Espacio entre los elementos */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Sombra */
+        }
+
+        /* Estilos de los logos */
+        .banner .logo {
+            height: 40px;
+            /* Tamaño del logo */
+            padding: 0 15px;
+            /* Espaciado interno horizontal */
+        }
+
+        .logomenu {
+            display: flex;
+            align-items: center;
+        }
+
+        .logos {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            /* Empuja los logos a la derecha */
+        }
+
+        .logos img {
+            margin-right: 10px;
+            /* Espacio entre los logos */
+        }
+
+        .logos img:last-child {
+            margin-right: 20px;
+            /* Asegura que el último logo no esté pegado al borde derecho */
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            /* Reduce el tamaño de la fuente */
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content,
+        .dropdown-content-sub {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a,
+        .dropdown-content-sub a {
+            color: black;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 12px;
+            /* Reduce el tamaño de la fuente */
+        }
+
+        .dropdown-content a:hover,
+        .dropdown-content-sub a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-submenu:hover .dropdown-content-sub {
+            display: block;
+        }
+
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-content-sub {
+            top: 0;
+            left: 100%;
+        }
         /* Estilos adicionales específicos para el módulo MSDT */
         .example-selector {
             margin-bottom: 20px;
@@ -78,6 +188,27 @@
             background-color: #fff;
             color: #000;
         }
+
+        /* Estilos específicos para la salida del ejemplo */
+        .example-output {
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .color-4A {
+            background-color: #ff3300; /* Fondo verde */
+            color: #00ff22; /* Texto blanco */
+        }
+
+        .color-90 {
+            background-color: #2089f3; /* Fondo amarillo */
+            color: #000000; /* Texto oscuro */
+        }
+
+        .color-89 {
+            background-color: #4e4f50; /* Fondo azul */
+            color: #4489c1; /* Texto blanco */
+        }
     </style>
 </head>
 <body>
@@ -98,39 +229,51 @@
                 <a href="/aplicativo-bat/bat_didactico/modulos/custom.html">Generar BAT</a>
             </div>
         </div>
-        <div class="logo">
+        <div class="logos">
+            <img src="../ufps.png" alt="Logo" class="logo">
             <img src="../logo.png" alt="Logo" class="logo">
         </div>
     </div>
     <div class="container">
         <div class="card left explanation-card">
-            <h2><code>MSDT</code></h2>
+            <h2><code>COLOR</code></h2>
             <p>
-                Invoca un paquete de solución de problemas en la línea de comandos o como parte de una secuencia de comandos automatizada, y habilita opciones adicionales sin entrada del usuario.
+                Cambia los colores de primer plano y de fondo en la ventana del símbolo del sistema de la sesión actual. Si se usa sin parámetros, color restaura los colores predeterminados de fondo y de primer plano de la ventana del símbolo del sistema.
             </p>
             <div class="divider"></div>
             <h2>Sintaxis</h2>
-            <pre class="code-block">
-msdt </id <name> | /path <name> | /cab < name>> <</parameter> [options] … <parameter> [options]>>
-            </pre>
+            <pre class="code-block">color [attr]</pre>
             <div class="divider"></div>
             <h2>Parámetros</h2>
             <div class="parameter-list">
-                <p>En esta sección se muestran los parámetros comunes utilizados con <code>msdt</code>, junto con sus descripciones correspondientes.</p>
+               
                 <ul>
-                    <li><code>/id</code>: Especifica qué paquete de diagnóstico debe ejecutarse. Para obtener una lista de los paquetes disponibles, consulte Paquetes de solución de problemas disponibles.</li>
-                    <li><code>/path</code>: Especifica la ruta de acceso completa a un paquete de diagnóstico. Si especifica un directorio, este debe contener un paquete de diagnóstico. No se puede usar este parámetro junto con /id, /dci o /cab.</li>
-                    <li><code>/dci</code>: Rellena previamente el campo de clave de paso. Este parámetro solo se usa cuando un proveedor de soporte técnico ha proporcionado una clave de paso.</li>
-                    <li><code>/dt</code>: Muestra el historial de solución de problemas en el directorio especificado.</li>
-                    <li><code>/af</code>: Especifica un archivo de respuesta en formato XML que contiene respuestas a una o varias interacciones de diagnóstico.</li>
-                    <li><code>/modal</code>: Convierte el paquete de solución de problemas modal en una ventana designada por el identificador primario de ventana de consola (HWND), en decimal. Este parámetro lo usan las aplicaciones que inician un paquete de solución de problemas.</li>
-                    <li><code>/moreoptions</code>: Habilita (true) o suprime (false) la pantalla de solución de problemas final que pregunta si el usuario quiere explorar opciones adicionales.</li>
-                    <li><code>/custom</code>: Solicita al usuario que confirme cada posible resolución antes de aplicarla.</li>
-                    <li><code>/advanced</code>: Expande el vínculo avanzado de la página principal de forma predeterminada cuando se inicia el paquete de solución de problemas.</li>
+                    <li>Especificar uno o dos dígitos hexadecimales. La primera se usa como color de primer plano y la segunda se usa como color de fondo. Si especifica dos dígitos hexadecimales, no use caracteres de espacio entre ellos.</li>
+                    <li>Si especifica el mismo valor para dos dígitos hexadecimales, ERRORLEVEL se establece en 1 y no se realiza ningún cambio en el primer plano o en el color de fondo.</li>
+                    <ul>
+                        <p><CODE>attr</CODE>: Especifique el atributo de color de la salida de la consola. </p>
+                        <li style="background-color: #000000; color: white;">0 - Negro</li>
+                        <li style="background-color: #007bff; color: white;">1 - Azul</li>
+                        <li style="background-color: #4CAF50; color: white;">2 - Verde</li>
+                        <li style="background-color: #00bcd4; color: black;">3 - Aqua</li>
+                        <li style="background-color: #ff0000; color: white;">4 - Rojo</li>
+                        <li style="background-color: #9c27b0; color: white;">5 - Púrpura</li>
+                        <li style="background-color: #ffc107; color: black;">6 - Amarillo</li>
+                        <li style="background-color: #ffffff; color: black;">7 - Blanco</li>
+                        <li style="background-color: #9e9e9e; color: white;">8 - Gris</li>
+                        <li style="background-color: #03a9f4; color: black;">9 - Azul claro</li>
+                        <li style="background-color: #8bc34a; color: black;">a - Verde claro</li>
+                        <li style="background-color: #00bcd4; color: black;">b - Aguamarina claro</li>
+                        <li style="background-color: #f44336; color: white;">c - Rojo claro</li>
+                        <li style="background-color: #9c27b0; color: white;">d - Púrpura claro</li>
+                        <li style="background-color: #ffc107; color: black;">e - Amarillo claro</li>
+                        <li style="background-color: #ffffff; color: black;">f - Blanco brillante</li>
+                    </ul>
+                    
                 </ul>
             </div>
         </div>
-        <div class="card right">
+        <div class="card right" id="exampleCard">
             <div class="example-selector">
                 <h3>Selecciona un ejemplo:</h3>
                 <div class="divider"></div>
@@ -142,7 +285,7 @@ msdt </id <name> | /path <name> | /cab < name>> <</parameter> [options] … <par
             </div>
             <div class="card example-card">
                 <div class="command-description" id="exampleDescription">
-                    <p>Selecciona un ejemplo para ver la descripción y el comando correspondiente.</p>
+                    <p>Selecciona un ejemplo para ver el cambio de consola.</p>
                 </div>
                 <div class="divider"></div>
                 <h2>Entrada</h2>
@@ -161,19 +304,19 @@ msdt </id <name> | /path <name> | /cab < name>> <</parameter> [options] … <par
 
             switch (exampleNumber) {
                 case 1:
-                    inputText = `msdt /id NetworkDiagnosticsNetworkAdapter`;
-                    outputText = `Invoking Network Diagnostics Network Adapter Troubleshooter...\n\nPlease wait while the diagnostic tool is running.\n\nDiagnosis completed.\n\nIssues found:\n- Problem with wireless adapter or access point: Fixed\n- Problem with network adapter: Not Fixed\n\nYou can find detailed information in the report generated by the troubleshooter.`;
-                    description = `<p>Ejecuta el solucionador de problemas para adaptadores de red. El resultado muestra los problemas encontrados y si se pudieron solucionar.</p>`;
+                    inputText = `color 4A`;
+                    outputText = `color 4A \n`;
+                    changeOutputColor('4','A');
                     break;
                 case 2:
-                    inputText = `msdt /path "C:\\Diagnostics\\Network.diagpkg"`;
-                    outputText = `Invoking Diagnostic Tool...\n\nPlease wait while the diagnostic tool is running.\n\nDiagnosis completed.\n\nIssues found and resolved:\n- Network connectivity issue: Resolved\n\nYou can find detailed information in the report generated by the diagnostic tool.`;
-                    description = `<p>Ejecuta un paquete de diagnóstico desde la ruta especificada. El resultado muestra los problemas encontrados y si se pudieron solucionar.</p>`;
+                    inputText = `color 90`;
+                    outputText = `color 90 \n`;
+                    changeOutputColor('9','0');
                     break;
                 case 3:
-                    inputText = `msdt /id DeviceDiagnostic /af "C:\\Responses\\device_responses.xml"`;
-                    outputText = `Invoking Device Diagnostic Troubleshooter...\n\nUsing response file: C:\\Responses\\device_responses.xml\n\nPlease wait while the diagnostic tool is running.\n\nDiagnosis completed.\n\nIssues found:\n- Device not recognized: Fixed\n- Driver issue: Fixed\n\nYou can find detailed information in the report generated by the troubleshooter.`;
-                    description = `<p>Ejecuta el solucionador de problemas de dispositivos utilizando un archivo de respuesta XML para proporcionar respuestas predefinidas durante el diagnóstico. El resultado muestra los problemas encontrados y si se pudieron solucionar.</p>`;
+                    inputText = `color 89`;
+                    outputText = `color 89 \n`;
+                    changeOutputColor('8','9');
                     break;
                 default:
                     inputText = '';
@@ -183,7 +326,13 @@ msdt </id <name> | /path <name> | /cab < name>> <</parameter> [options] … <par
 
             document.getElementById('exampleInput').textContent = inputText;
             document.getElementById('exampleOutput').textContent = outputText;
-            document.getElementById('exampleDescription').innerHTML = description;
+        }
+
+        function changeOutputColor(colorFondo, colorFuente) {
+            const exampleOutput = document.getElementById('exampleOutput');
+            exampleOutput.className = 'code-block example-output';
+            exampleOutput.classList.remove('color-4A', 'color-90', 'color-89'); // Limpiar clases previas
+            exampleOutput.classList.add(`color-${colorFondo}${colorFuente}`);
         }
     </script>
 </body>
