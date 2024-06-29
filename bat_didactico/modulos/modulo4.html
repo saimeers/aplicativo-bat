@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo LOGMAN</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* Estilos adicionales específicos para el módulo LOGMAN */
+        .example-selector {
+            margin-bottom: 20px;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .example-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .example-button:hover {
+            background-color: #555;
+        }
+
+        .code-block {
+            margin-top: 20px;
+        }
+
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .command-description {
+            margin-bottom: 20px;
+        }
+
+        .parameter-list {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list h3 {
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .parameter-list ul li {
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(odd) {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(even) {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li.flush-dns {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="dropdown">
+            <button class="dropbtn">Menú</button>
+            <div class="dropdown-content">
+                <a href="/bat_didactico/index.html">Inicio</a>
+                <a href="/bat_didactico/modulos/modulo1.html">Netsh</a>
+                <a href="/bat_didactico/modulos/modulo2.html">Ipconfig</a>
+                <a href="/bat_didactico/modulos/modulo3.html">Icacls</a>
+                <a href="/bat_didactico/modulos/modulo5.html">Findstr</a>
+                <a href="/bat_didactico/modulos/modulo6.html">Msdt</a>
+                <a href="/bat_didactico/modulos/modulo7.html">Schtasks</a>
+                <a href="/bat_didactico/modulos/modulo8.html">Tasklist</a>
+                <a href="/bat_didactico/modulos/custom.html">Generar BAT</a>
+            </div>
+        </div>
+        <div class="logo">
+            <img src="../logo.png" alt="Logo" class="logo">
+        </div>
+    </div>
+    <div class="container">
+        <div class="card left explanation-card">
+            <h2><code>LOGMAN</code></h2>
+            <p>
+                Es una herramienta de línea de comandos en Windows que se utiliza para crear y administrar sesiones de recolección de datos de rendimiento y eventos. Permite a los administradores y usuarios avanzados capturar y analizar datos sobre el rendimiento del sistema y aplicaciones.
+            </p>
+            <div class="divider"></div>
+            <h2>Sintaxis</h2>
+            <pre class="code-block">
+logman [create | query | start | stop | delete| update | import | export | /?] [options]
+            </pre>
+            <div class="divider"></div>
+            <h2>Parámetros</h2>
+            <div class="parameter-list">
+                <p>En esta sección se muestran los parámetros comunes utilizados con <code>logman</code>, junto con sus descripciones correspondientes.</p>
+                <ul>
+                    <li>
+                        <ul>
+                            <li><code>create</code>: Crea una nueva sesión de recolección de datos.</li>
+                            <li><code>update</code>: Actualiza la configuración de una sesión de recolección de datos existente.</li>
+                            <li><code>query</code>: Consulta la configuración y estado de las sesiones de recolección de datos.</li>
+                            <li>
+                                <ul>
+                                <li>Se pueden combinar los siguientes parametros con los anteriores:</li>
+                                    <li><code>-c</code>: Especifica los contadores de rendimiento a recopilar.</li>
+                                    <li><code>-si</code>: Especifica el intervalo de muestreo en segundos.</li>
+                                    <li><code>-o</code>: Especifica el archivo de salida donde se guardarán los datos recopilados.</li>
+                                </ul>
+                            </li>
+                            
+                            <li><code>start</code>: Inicia una sesión de recolección de datos existente.</li>
+                            <li><code>stop</code>: Detiene una sesión de recolección de datos en ejecución.</li>
+                            <li><code>delete</code>: Elimina una sesión de recolección de datos.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card right">
+            <div class="example-selector">
+                <h3>Selecciona un ejemplo:</h3>
+                <div class="divider"></div>
+                <div class="example-buttons">
+                    <button class="example-button" onclick="selectExample(1)">1</button>
+                    <button class="example-button" onclick="selectExample(2)">2</button>
+                    <button class="example-button" onclick="selectExample(3)">3</button>
+                </div>
+            </div>
+            <div class="card example-card">
+                <div class="command-description" id="exampleDescription">
+                    <p>Selecciona un ejemplo para ver la descripción y el comando correspondiente.</p>
+                </div>
+                <div class="divider"></div>
+                <h2>Entrada</h2>
+                <pre id="exampleInput" class="code-block example-input">
+                </pre>
+                <div class="divider"></div>
+                <h2>Salida</h2>
+                <pre id="exampleOutput" class="code-block example-output">
+                </pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        function selectExample(exampleNumber) {
+            let inputText, outputText, description;
+
+            switch (exampleNumber) {
+                case 1:
+                    inputText = `logman create counter MyDataCollector -c "\\Processor(_Total)\\% Processor Time" -si 5 -o "C:\\PerfLogs\\MyDataCollector"`;
+                    outputText = `The command completed successfully.`;
+                    description = `<p>Crea un conjunto de recopilación de datos llamado MyDataCollector que recopila datos de rendimiento del sistema.</p>`;
+                    break;
+                case 2:
+                    inputText = `logman query MyDataCollector`;
+                    outputText = `Data Collector Set:      MyDataCollector
+Type:                    Performance Counter
+Status:                  Stopped
+Output Location:         C:\\PerfLogs\\MyDataCollector
+Schedule:                Manual
+Sample Interval:         5 seconds
+
+Counter:                 \\Processor(_Total)\\% Processor Time`;
+                    description = `<p>Muestra información sobre el conjunto de recopilación de datos llamado MyDataCollector.</p>`;
+                    break;
+                case 3:
+                    inputText = `logman delete MyDataCollector`;
+                    outputText = `The command completed successfully.`;
+                    description = `<p>Elimina el conjunto de recopilación de datos llamado MyDataCollector.</p>`;
+                    break;
+                default:
+                    inputText = '';
+                    outputText = '';
+                    description = '';
+            }
+
+            document.getElementById('exampleInput').textContent = inputText;
+            document.getElementById('exampleOutput').textContent = outputText;
+            document.getElementById('exampleDescription').innerHTML = description;
+        }
+    </script>
+</body>
+</html>

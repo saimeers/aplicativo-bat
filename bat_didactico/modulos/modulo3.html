@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo ICACLS</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* Estilos adicionales específicos para el módulo ICACLS */
+        .example-selector {
+            margin-bottom: 20px;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .example-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .example-button:hover {
+            background-color: #555;
+        }
+
+        .code-block {
+            margin-top: 20px;
+        }
+
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .command-description {
+            margin-bottom: 20px;
+        }
+
+        .parameter-list {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list h3 {
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .parameter-list ul li {
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(odd) {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(even) {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li.flush-dns {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="dropdown">
+            <button class="dropbtn">Menú</button>
+            <div class="dropdown-content">
+                <a href="/bat_didactico/index.html">Inicio</a>
+                <a href="/bat_didactico/modulos/modulo1.html">Netsh</a>
+                <a href="/bat_didactico/modulos/modulo2.html">Ipconfig</a>
+                <a href="/bat_didactico/modulos/modulo4.html">Logman</a>
+                <a href="/bat_didactico/modulos/modulo5.html">Findstr</a>
+                <a href="/bat_didactico/modulos/modulo6.html">Msdt</a>
+                <a href="/bat_didactico/modulos/modulo7.html">Schtasks</a>
+                <a href="/bat_didactico/modulos/modulo8.html">Tasklist</a>
+                <a href="/bat_didactico/modulos/custom.html">Generar BAT</a> 
+            </div>
+        </div>
+        <div class="logo">
+            <img src="../logo.png" alt="Logo" class="logo">
+        </div>
+    </div>
+    <div class="container">
+        <div class="card left explanation-card">
+            <h2><code>ICACLS</code></h2>
+            <p>
+                Es una herramienta de línea de comandos en Windows que se utiliza para mostrar y modificar las listas de control de acceso (ACL) de archivos y directorios. Las ACL son conjuntos de permisos asociados con recursos del sistema, como archivos y directorios, que determinan qué usuarios o grupos tienen acceso y qué tipo de acceso tienen.
+            </p>
+            <div class="divider"></div>
+            <h2>Sintaxis</h2>
+            <pre class="code-block">icacls filename [/grant[:r] sid:perm[...]] [/deny sid:perm[...]] [/remove[:g|:d]] sid[...]] [/t] [/c] [/l] [/q] [/setintegritylevel Level:policy[...]]</pre>
+            <pre class="code-block">icacls directory [/substitute sidold sidnew [...]] [/restore aclfile [/c] [/l] [/q]]</pre>
+            <div class="divider"></div>
+            <h2>Parámetros</h2>
+            <div class="parameter-list">
+                <p>En esta sección se muestran los parámetros comunes utilizados con <code>icacls</code>, junto con sus descripciones correspondientes.</p>
+                <ul>
+                    <li>
+                        <ul>
+                            <li><code>/grant</code>: Otorga permisos específicos a un usuario o grupo.</li>
+                            <li><code>/deny</code>: Deniega permisos específicos a un usuario o grupo.</li>
+                            <li><code>/remove</code>: Elimina todos los permisos de un usuario o grupo.</li>
+                            <li><code>/inheritance</code>: Controla la herencia de permisos de una carpeta a sus subcarpetas.
+                                <ul>
+                                    <li><code>:e</code>: Habilita la herencia.</li>
+                                    <li><code>:d</code>: Deshabilita la herencia.</li>
+                                    <li><code>:r</code>: Remueve todos los permisos heredados.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card right">
+            <div class="example-selector">
+                <h3>Selecciona un ejemplo:</h3>
+                <div class="divider"></div>
+                <div class="example-buttons">
+                    <button class="example-button" onclick="selectExample(1)">1</button>
+                    <button class="example-button" onclick="selectExample(2)">2</button>
+                    <button class="example-button" onclick="selectExample(3)">3</button>
+                </div>
+            </div>
+            <div class="card example-card">
+                <div class="command-description" id="exampleDescription">
+                    <p>Selecciona un ejemplo para ver la descripción y el comando correspondiente.</p>
+                </div>
+                <div class="divider"></div>
+                <h2>Entrada</h2>
+                <pre id="exampleInput" class="code-block example-input">
+                </pre>
+                <div class="divider"></div>
+                <h2>Salida</h2>
+                <pre id="exampleOutput" class="code-block example-output">
+                </pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        function selectExample(exampleNumber) {
+            let inputText, outputText, description;
+
+            switch (exampleNumber) {
+                case 1:
+                    inputText = `icacls c:\\windows\\* /save aclfile /t`;
+                    outputText = `processed file: c:\\windows\\*
+Successfully processed X files; Failed processing Y files`;
+                    description = `
+                    <p>Guarda las listas de control de acceso (ACL) de todos los archivos y subdirectorios en el directorio c:\\windows en un archivo llamado aclfile. La opción /t se utiliza para aplicar la operación a todos los archivos y subdirectorios.</p>`;
+                    break;
+                case 2:
+                    inputText = `icacls c:\\windows\\ /restore aclfile`;
+                    outputText = `processed file: c:\\windows\\*
+Successfully processed X files; Failed processing Y files`;
+                    description = `
+                    <p>Restaura las ACLs desde el archivo aclfile a los archivos y subdirectorios en el directorio c:\\windows.</p>`;
+                    break;
+                case 3:
+                    inputText = `icacls test1 /grant User1:(d,wdac)`;
+                    outputText = `processed file: test1
+Successfully processed 1 files; Failed processing 0 files`;
+                    description = `
+                    <p>Otorga al usuario User1 los permisos de eliminación (d) y control de acceso de escritura (wdac) para el archivo o directorio test1.</p>`;
+                    break;
+                default:
+                    inputText = '';
+                    outputText = '';
+                    description = '';
+            }
+
+            document.getElementById('exampleInput').textContent = inputText;
+            document.getElementById('exampleOutput').textContent = outputText;
+            document.getElementById('exampleDescription').innerHTML = description;
+        }
+    </script>
+</body>
+</html>

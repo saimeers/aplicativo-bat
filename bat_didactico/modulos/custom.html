@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de BAT</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .command-select {
+            margin-bottom: 20px;
+        }
+
+        .command-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .parameter-input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .generate-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .generate-button:hover {
+            background-color: #45a049;
+        }
+
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+
+        .code-block {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #000000;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-line {
+            position: relative;
+            color: #ffffff;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .download-link {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .download-link a {
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .download-link a:hover {
+            background-color: #45a049;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        .card p {
+            margin: 10px 0;
+        }
+
+        .card .parameters {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .card .ver-mas {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .card .ver-mas:hover {
+            background-color: #45a049;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="dropdown">
+            <button class="dropbtn">Menú</button>
+            <div class="dropdown-content">
+                <a href="/bat_didactico/index.html">Inicio</a>
+                <a href="/bat_didactico/modulos/modulo1.html">Netsh</a>
+                <a href="/bat_didactico/modulos/modulo2.html">Ipconfig</a>
+                <a href="/bat_didactico/modulos/modulo3.html">Icacls</a>
+                <a href="/bat_didactico/modulos/modulo4.html">Logman</a>
+                <a href="/bat_didactico/modulos/modulo5.html">Findstr</a>
+                <a href="/bat_didactico/modulos/modulo6.html">Msdt</a>
+                <a href="/bat_didactico/modulos/modulo7.html">Schtasks</a>
+                <a href="/bat_didactico/modulos/modulo8.html">Tasklist</a>
+            </div>
+        </div>
+        <div class="logo">
+            <img src="../logo.png" alt="Logo" class="logo">
+        </div>
+    </div>
+    <div class="container">
+        <h1>Generador de BAT</h1>
+        <div class="command-select">
+            <label for="command">Selecciona uno o más comandos:</label>
+            <select id="command" class="parameter-input" multiple size="5" onchange="showOptions()">
+                <option value="netsh">Netsh</option>
+                <option value="ipconfig">Ipconfig</option>
+            </select>
+        </div>
+        <div id="commandOptions" class="command-options"></div>
+        <button class="generate-button" onclick="generateBat()">Generar</button>
+        <div id="output" class="output code-block"></div>
+        <div id="downloadLink" class="download-link" style="display: none;">
+            <a id="downloadButton" href="#" download="script.bat">Descargar archivo BAT</a>
+        </div>
+    </div>
+    
+    <script>
+        const commandDescriptions = {
+            netsh: "Netsh es una utilidad de línea de comandos que permite configurar y administrar la red.",
+            ipconfig: "Ipconfig es una utilidad de línea de comandos que muestra la configuración de red del sistema."
+        };
+    
+        const netshOptions = {
+            interface: [
+                { name: "show interface", params: [] },
+                { name: "set interface", params: [{ name: "name", placeholder: "Nombre de la interfaz" }] },
+                { name: "ip set address", params: [
+                    { name: "name", placeholder: "Nombre de la interfaz" },
+                    { name: "source", placeholder: "Origen de la dirección IP (ej. static, dhcp)" },
+                    { name: "addr", placeholder: "Dirección IP (cuando source es static)" },
+                    { name: "mask", placeholder: "Máscara de subred (cuando source es static)" },
+                    { name: "gateway", placeholder: "Puerta de enlace (cuando source es static)" },
+                    { name: "gwmetric", placeholder: "Métrica de la puerta de enlace (opcional)" }
+                ] },
+                { name: "ipv4 set address", params: [
+                    { name: "name", placeholder: "Nombre de la interfaz" },
+                    { name: "source", placeholder: "Origen de la dirección IP (ej. static, dhcp)" },
+                    { name: "addr", placeholder: "Dirección IP (cuando source es static)" },
+                    { name: "mask", placeholder: "Máscara de subred (cuando source es static)" },
+                    { name: "gateway", placeholder: "Puerta de enlace (cuando source es static)" },
+                    { name: "gwmetric", placeholder: "Métrica de la puerta de enlace (opcional)" }
+                ] },
+                { name: "ipv4 set dnsservers", params: [
+                    { name: "name", placeholder: "Nombre de la interfaz" },
+                    { name: "source", placeholder: "Origen de los servidores DNS (ej. static, dhcp)" },
+                    { name: "addr", placeholder: "Dirección IP del servidor DNS" },
+                    { name: "register", placeholder: "Registro DNS (ej. primary, none)" }
+                ] },
+                { name: "ipv4 add dnsservers", params: [
+                    { name: "name", placeholder: "Nombre de la interfaz" },
+                    { name: "addr", placeholder: "Dirección IP del servidor DNS" },
+                    { name: "index", placeholder: "Índice de orden de los servidores DNS" }
+                ] }
+            ],
+            wlan: [
+                { name: "show interfaces", params: [] },
+                { name: "show profiles", params: [] },
+                { name: "add profile", params: [{ name: "filename", placeholder: "Ruta del archivo XML del perfil" }] },
+                { name: "delete profile", params: [{ name: "name", placeholder: "Nombre del perfil" }] }
+            ]
+        };
+    
+        const ipconfigOptions = [
+            { name: "/all", params: [] },
+            { name: "/release", params: [] },
+            { name: "/renew", params: [] },
+            { name: "/displaydns", params: [] },
+            { name: "/flushdns", params: [] }
+        ];
+    
+        function showOptions() {
+            const selectedCommands = Array.from(document.getElementById('command').selectedOptions).map(option => option.value);
+            const optionsDiv = document.getElementById('commandOptions');
+            optionsDiv.innerHTML = '';
+    
+            selectedCommands.forEach(selectedCommand => {
+                // Crear el card para el comando seleccionado
+                const card = document.createElement('div');
+                card.className = 'card';
+    
+                // Título del comando
+                const title = document.createElement('h2');
+                title.textContent = selectedCommand.charAt(0).toUpperCase() + selectedCommand.slice(1);
+                card.appendChild(title);
+    
+                // Descripción del comando
+                const description = document.createElement('p');
+                description.textContent = commandDescriptions[selectedCommand];
+                card.appendChild(description);
+    
+                // Botón "Ver más"
+                const verMasButton = document.createElement('button');
+                verMasButton.className = 'ver-mas';
+                verMasButton.textContent = 'Ver más';
+                verMasButton.onclick = () => window.location.href = `/bat_didactico/modulos/modulo${getModuleNumber(selectedCommand)}.html`;
+                card.appendChild(verMasButton);
+    
+                // Parámetros principales
+                const parametersDiv = document.createElement('div');
+                parametersDiv.className = 'parameters';
+    
+                const selectMainOption = document.createElement('select');
+                selectMainOption.className = 'parameter-input';
+                selectMainOption.dataset.command = selectedCommand;
+    
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "Seleccionar opción...";
+                selectMainOption.appendChild(defaultOption);
+    
+                if (selectedCommand === 'netsh') {
+                    ["interface", "wlan"].forEach(opt => {
+                        const optionElem = document.createElement('option');
+                        optionElem.value = opt;
+                        optionElem.textContent = opt;
+                        selectMainOption.appendChild(optionElem);
+                    });
+                } else if (selectedCommand === 'ipconfig') {
+                    ipconfigOptions.forEach(opt => {
+                        const optionElem = document.createElement('option');
+                        optionElem.value = opt.name;
+                        optionElem.textContent = opt.name;
+                        selectMainOption.appendChild(optionElem);
+                    });
+                }
+    
+                selectMainOption.addEventListener('change', () => handleMainOptionChange(selectedCommand, selectMainOption.value));
+    
+                parametersDiv.innerHTML += `<label>Opción principal:</label>`;
+                parametersDiv.appendChild(selectMainOption);
+    
+                card.appendChild(parametersDiv);
+                optionsDiv.appendChild(card);
+            });
+        }
+    
+        function handleMainOptionChange(command, mainOption) {
+            const parametersDiv = document.querySelector(`.parameters[data-command="${command}"]`) || document.querySelector('.parameters');
+    
+            // Limpiar sub-opciones y parámetros previos
+            const existingSubOptions = document.querySelector('.sub-options');
+            if (existingSubOptions) {
+                existingSubOptions.remove();
+            }
+    
+            if (command === 'netsh' && mainOption) {
+                const subOptionsDiv = document.createElement('div');
+                subOptionsDiv.className = 'sub-options';
+    
+                parametersDiv.appendChild(subOptionsDiv);
+    
+                const subOptions = netshOptions[mainOption];
+                if (subOptions) {
+                    const selectSubOption = document.createElement('select');
+                    selectSubOption.className = 'parameter-input';
+                    selectSubOption.dataset.command = command;
+                    selectSubOption.dataset.mainOption = mainOption;
+    
+                    const defaultOption = document.createElement('option');
+                    defaultOption.value = "";
+                    defaultOption.textContent = "Seleccionar sub-opción...";
+                    selectSubOption.appendChild(defaultOption);
+    
+                    subOptions.forEach(opt => {
+                        const optionElem = document.createElement('option');
+                        optionElem.value = opt.name;
+                        optionElem.textContent = opt.name;
+                        selectSubOption.appendChild(optionElem);
+                    });
+    
+                    selectSubOption.addEventListener('change', () => handleSubOptionChange(command, mainOption, selectSubOption.value));
+    
+                    subOptionsDiv.innerHTML += `<label>Sub-opción:</label>`;
+                    subOptionsDiv.appendChild(selectSubOption);
+                }
+            }
+        }
+    
+        function handleSubOptionChange(command, mainOption, subOption) {
+            const subOptionsDiv = document.querySelector('.sub-options');
+    
+            // Limpiar parámetros previos
+            const existingParams = document.querySelector('.params');
+            if (existingParams) {
+                existingParams.remove();
+            }
+    
+            const paramsDiv = document.createElement('div');
+            paramsDiv.className = 'params';
+    
+            subOptionsDiv.appendChild(paramsDiv);
+    
+            const selectedSubOption = netshOptions[mainOption].find(opt => opt.name === subOption);
+            if (selectedSubOption && selectedSubOption.params.length > 0) {
+                selectedSubOption.params.forEach(param => {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'parameter-input';
+                    input.placeholder = param.placeholder;
+                    input.dataset.command = command;
+                    input.dataset.mainOption = mainOption;
+                    input.dataset.subOption = subOption;
+                    input.dataset.param = param.name;
+    
+                    paramsDiv.innerHTML += `<label>${param.name}:</label>`;
+                    paramsDiv.appendChild(input);
+                });
+            }
+        }
+    
+        function generateBat() {
+            const selectedCommands = Array.from(document.getElementById('command').selectedOptions).map(option => option.value);
+            const outputDiv = document.getElementById('output');
+            outputDiv.textContent = '';
+    
+            selectedCommands.forEach(selectedCommand => {
+                const mainOptionSelect = document.querySelector(`select[data-command="${selectedCommand}"]`);
+                const mainOption = mainOptionSelect.value;
+    
+                if (!mainOption) {
+                    alert('Por favor, selecciona una opción principal');
+                    return;
+                }
+    
+                let commandString = `${selectedCommand} ${mainOption}`;
+    
+                if (selectedCommand === 'netsh') {
+                    const subOptionSelect = document.querySelector(`select[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                    const subOption = subOptionSelect.value;
+    
+                    if (!subOption) {
+                        alert('Por favor, selecciona una sub-opción');
+                        return;
+                    }
+    
+                    commandString += ` ${subOption}`;
+    
+                    const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"][data-sub-option="${subOption}"]`);
+                    paramsInputs.forEach(input => {
+                        const paramName = input.dataset.param;
+                        const paramValue = input.value;
+                        if (paramValue) {
+                            commandString += ` ${paramName}=${paramValue}`;
+                        }
+                    });
+                }
+    
+                outputDiv.textContent += commandString + '\n';
+    
+                const downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(outputDiv.textContent);
+                downloadLink.style.display = 'block';
+            });
+        }
+    
+        function getModuleNumber(command) {
+            const modules = {
+                netsh: 1,
+                ipconfig: 2,
+                icacls: 3,
+                // Agregar más comandos y sus números de módulo aquí
+            };
+            return modules[command] || 1;
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            showOptions();
+        });
+    </script>
+    
+    
+</body>
+</html>

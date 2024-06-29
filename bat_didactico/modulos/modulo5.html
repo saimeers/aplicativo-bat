@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo FINDSTR</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* Estilos adicionales específicos para el módulo FINDSTR */
+        .example-selector {
+            margin-bottom: 20px;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .example-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .example-button:hover {
+            background-color: #555;
+        }
+
+        .code-block {
+            margin-top: 20px;
+        }
+
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .command-description {
+            margin-bottom: 20px;
+        }
+
+        .parameter-list {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list h3 {
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .parameter-list ul li {
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(odd) {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(even) {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li.flush-dns {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="dropdown">
+            <button class="dropbtn">Menú</button>
+            <div class="dropdown-content">
+                <a href="/bat_didactico/index.html">Inicio</a>
+                <a href="/bat_didactico/modulos/modulo1.html">Netsh</a>
+                <a href="/bat_didactico/modulos/modulo2.html">Ipconfig</a>
+                <a href="/bat_didactico/modulos/modulo3.html">Icacls</a>
+                <a href="/bat_didactico/modulos/modulo4.html">Logman</a>
+                <a href="/bat_didactico/modulos/modulo6.html">Msdt</a>
+                <a href="/bat_didactico/modulos/modulo7.html">Schtasks</a>
+                <a href="/bat_didactico/modulos/modulo8.html">Tasklist</a>
+                <a href="/bat_didactico/modulos/custom.html">Generar BAT</a>
+            </div>
+        </div>
+        <div class="logo">
+            <img src="../logo.png" alt="Logo" class="logo">
+        </div>
+    </div>
+    <div class="container">
+        <div class="card left explanation-card">
+            <h2><code>FINDSTR</code></h2>
+            <p>
+                Busca patrones de texto en archivos.
+            </p>
+            <div class="divider"></div>
+            <h2>Sintaxis</h2>
+            <pre class="code-block">
+findstr [/b] [/e] [/l | /r] [/s] [/i] [/x] [/v] [/n] [/m] [/o] [/p] [/f:<file>] [/c:<string>] [/g:<file>] [/d:<dirlist>] [/a:<colorattribute>] [/off[line]] <strings> [<drive>:][<path>]<filename>[ ...]
+            </pre>
+            <div class="divider"></div>
+            <h2>Parámetros</h2>
+            <div class="parameter-list">
+                <p>En esta sección se muestran los parámetros comunes utilizados con <code>findstr</code>, junto con sus descripciones correspondientes.</p>
+                <ul>
+                    <li><code>/b</code>: Coincide con el patrón de texto si está al principio de una línea.</li>
+                    <li><code>/e</code>: Coincide con el patrón de texto si está al final de una línea.</li>
+                    <li><code>/l</code>: Procesa cadenas de búsqueda literalmente.</li>
+                    <li><code>/r</code>: Procesa cadenas de búsqueda como expresiones regulares. Esta es la configuración predeterminada.</li>
+                    <li><code>/s</code>: Busca en el directorio actual y en todos los subdirectorios.</li>
+                    <li><code>/i</code>: Omite el caso de los caracteres al buscar la cadena.</li>
+                    <li><code>/x</code>: Imprime líneas que coinciden exactamente.</li>
+                    <li><code>/v</code>: Imprime solo líneas que no contienen una coincidencia.</li>
+                    <li><code>/n</code>: Imprime el número de línea de cada línea que coincida.</li>
+                    <li><code>/m</code>: Imprime solo el nombre de archivo si un archivo contiene una coincidencia.</li>
+                    <li><code>/o</code>: Imprime el desplazamiento de caracteres antes de cada línea coincidente.</li>
+                    <li><code>/p</code>: Omite los archivos con caracteres no imprimibles.</li>
+                    <li><code>/off[line]</code>: No omite los archivos que tienen establecido el atributo sin conexión.</li>
+                    <li><code>/f:<file></code>: Obtiene una lista de archivos del archivo especificado.</li>
+                    <li><code>/c:<string></code>: Usa el texto especificado como una cadena de búsqueda literal.</li>
+                    <li><code>/g:<file></code>: Obtiene cadenas de búsqueda del archivo especificado.</li>
+                    <li><code>/d:<dirlist></code>: Busca en la lista especificada de directorios. Cada directorio debe estar separado con un punto y coma (;), por ejemplo dir1;dir2;dir3.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card right">
+            <div class="example-selector">
+                <h3>Selecciona un ejemplo:</h3>
+                <div class="divider"></div>
+                <div class="example-buttons">
+                    <button class="example-button" onclick="selectExample(1)">1</button>
+                    <button class="example-button" onclick="selectExample(2)">2</button>
+                    <button class="example-button" onclick="selectExample(3)">3</button>
+                </div>
+            </div>
+            <div class="card example-card">
+                <div class="command-description" id="exampleDescription">
+                    <p>Selecciona un ejemplo para ver la descripción y el comando correspondiente.</p>
+                </div>
+                <div class="divider"></div>
+                <h2>Entrada</h2>
+                <pre id="exampleInput" class="code-block example-input">
+                </pre>
+                <div class="divider"></div>
+                <h2>Salida</h2>
+                <pre id="exampleOutput" class="code-block example-output">
+                </pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        function selectExample(exampleNumber) {
+            let inputText, outputText, description;
+
+            switch (exampleNumber) {
+                case 1:
+                    inputText = `findstr Windows proposal.txt`;
+                    outputText = `Este es el archivo proposal.txt que contiene la palabra Windows en varias líneas.`;
+                    description = `<p>Busca todas las líneas en proposal.txt que contengan la cadena "Windows" y las imprime.</p>`;
+                    break;
+                case 2:
+                    inputText = `findstr /c:"hello there" x.y`;
+                    outputText = `Una línea en el archivo x.y que contiene exactamente la frase "hello there".`;
+                    description = `<p>Busca líneas que contengan exactamente la cadena "hello there" en el archivo x.y.</p>`;
+                    break;
+                case 3:
+                    inputText = `findstr hello there x.y`;
+                    outputText = `Una línea en el archivo x.y que contiene la palabra hello.
+Otra línea en el archivo x.y que contiene la palabra there.`;
+                    description = `<p>Busca y muestra las líneas que contienen cualquiera de las palabras "hello" o "there" en el archivo x.y.</p>`;
+                    break;
+                default:
+                    inputText = '';
+                    outputText = '';
+                    description = '';
+            }
+
+            document.getElementById('exampleInput').textContent = inputText;
+            document.getElementById('exampleOutput').textContent = outputText;
+            document.getElementById('exampleDescription').innerHTML = description;
+        }
+    </script>
+</body>
+</html>

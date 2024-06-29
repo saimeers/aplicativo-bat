@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo MSDT</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* Estilos adicionales específicos para el módulo MSDT */
+        .example-selector {
+            margin-bottom: 20px;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .example-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .example-button:hover {
+            background-color: #555;
+        }
+
+        .code-block {
+            margin-top: 20px;
+        }
+
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .command-description {
+            margin-bottom: 20px;
+        }
+
+        .parameter-list {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list h3 {
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .parameter-list ul li {
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(odd) {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(even) {
+            background-color: #fff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="dropdown">
+            <button class="dropbtn">Menú</button>
+            <div class="dropdown-content">
+                <a href="/bat_didactico/index.html">Inicio</a>
+                <a href="/bat_didactico/modulos/modulo1.html">Netsh</a>
+                <a href="/bat_didactico/modulos/modulo2.html">Ipconfig</a>
+                <a href="/bat_didactico/modulos/modulo3.html">Icacls</a>
+                <a href="/bat_didactico/modulos/modulo4.html">Logman</a>
+                <a href="/bat_didactico/modulos/modulo5.html">Findstr</a>
+                <a href="/bat_didactico/modulos/modulo7.html">Schtasks</a>
+                <a href="/bat_didactico/modulos/modulo8.html">Tasklist</a>
+                <a href="/bat_didactico/modulos/custom.html">Generar BAT</a>
+            </div>
+        </div>
+        <div class="logo">
+            <img src="../logo.png" alt="Logo" class="logo">
+        </div>
+    </div>
+    <div class="container">
+        <div class="card left explanation-card">
+            <h2><code>MSDT</code></h2>
+            <p>
+                Invoca un paquete de solución de problemas en la línea de comandos o como parte de una secuencia de comandos automatizada, y habilita opciones adicionales sin entrada del usuario.
+            </p>
+            <div class="divider"></div>
+            <h2>Sintaxis</h2>
+            <pre class="code-block">
+msdt </id <name> | /path <name> | /cab < name>> <</parameter> [options] … <parameter> [options]>>
+            </pre>
+            <div class="divider"></div>
+            <h2>Parámetros</h2>
+            <div class="parameter-list">
+                <p>En esta sección se muestran los parámetros comunes utilizados con <code>msdt</code>, junto con sus descripciones correspondientes.</p>
+                <ul>
+                    <li><code>/id</code>: Especifica qué paquete de diagnóstico debe ejecutarse. Para obtener una lista de los paquetes disponibles, consulte Paquetes de solución de problemas disponibles.</li>
+                    <li><code>/path</code>: Especifica la ruta de acceso completa a un paquete de diagnóstico. Si especifica un directorio, este debe contener un paquete de diagnóstico. No se puede usar este parámetro junto con /id, /dci o /cab.</li>
+                    <li><code>/dci</code>: Rellena previamente el campo de clave de paso. Este parámetro solo se usa cuando un proveedor de soporte técnico ha proporcionado una clave de paso.</li>
+                    <li><code>/dt</code>: Muestra el historial de solución de problemas en el directorio especificado.</li>
+                    <li><code>/af</code>: Especifica un archivo de respuesta en formato XML que contiene respuestas a una o varias interacciones de diagnóstico.</li>
+                    <li><code>/modal</code>: Convierte el paquete de solución de problemas modal en una ventana designada por el identificador primario de ventana de consola (HWND), en decimal. Este parámetro lo usan las aplicaciones que inician un paquete de solución de problemas.</li>
+                    <li><code>/moreoptions</code>: Habilita (true) o suprime (false) la pantalla de solución de problemas final que pregunta si el usuario quiere explorar opciones adicionales.</li>
+                    <li><code>/custom</code>: Solicita al usuario que confirme cada posible resolución antes de aplicarla.</li>
+                    <li><code>/advanced</code>: Expande el vínculo avanzado de la página principal de forma predeterminada cuando se inicia el paquete de solución de problemas.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card right">
+            <div class="example-selector">
+                <h3>Selecciona un ejemplo:</h3>
+                <div class="divider"></div>
+                <div class="example-buttons">
+                    <button class="example-button" onclick="selectExample(1)">1</button>
+                    <button class="example-button" onclick="selectExample(2)">2</button>
+                    <button class="example-button" onclick="selectExample(3)">3</button>
+                </div>
+            </div>
+            <div class="card example-card">
+                <div class="command-description" id="exampleDescription">
+                    <p>Selecciona un ejemplo para ver la descripción y el comando correspondiente.</p>
+                </div>
+                <div class="divider"></div>
+                <h2>Entrada</h2>
+                <pre id="exampleInput" class="code-block example-input">
+                </pre>
+                <div class="divider"></div>
+                <h2>Salida</h2>
+                <pre id="exampleOutput" class="code-block example-output">
+                </pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        function selectExample(exampleNumber) {
+            let inputText, outputText, description;
+
+            switch (exampleNumber) {
+                case 1:
+                    inputText = `msdt /id NetworkDiagnosticsNetworkAdapter`;
+                    outputText = `Invoking Network Diagnostics Network Adapter Troubleshooter...\n\nPlease wait while the diagnostic tool is running.\n\nDiagnosis completed.\n\nIssues found:\n- Problem with wireless adapter or access point: Fixed\n- Problem with network adapter: Not Fixed\n\nYou can find detailed information in the report generated by the troubleshooter.`;
+                    description = `<p>Ejecuta el solucionador de problemas para adaptadores de red. El resultado muestra los problemas encontrados y si se pudieron solucionar.</p>`;
+                    break;
+                case 2:
+                    inputText = `msdt /path "C:\\Diagnostics\\Network.diagpkg"`;
+                    outputText = `Invoking Diagnostic Tool...\n\nPlease wait while the diagnostic tool is running.\n\nDiagnosis completed.\n\nIssues found and resolved:\n- Network connectivity issue: Resolved\n\nYou can find detailed information in the report generated by the diagnostic tool.`;
+                    description = `<p>Ejecuta un paquete de diagnóstico desde la ruta especificada. El resultado muestra los problemas encontrados y si se pudieron solucionar.</p>`;
+                    break;
+                case 3:
+                    inputText = `msdt /id DeviceDiagnostic /af "C:\\Responses\\device_responses.xml"`;
+                    outputText = `Invoking Device Diagnostic Troubleshooter...\n\nUsing response file: C:\\Responses\\device_responses.xml\n\nPlease wait while the diagnostic tool is running.\n\nDiagnosis completed.\n\nIssues found:\n- Device not recognized: Fixed\n- Driver issue: Fixed\n\nYou can find detailed information in the report generated by the troubleshooter.`;
+                    description = `<p>Ejecuta el solucionador de problemas de dispositivos utilizando un archivo de respuesta XML para proporcionar respuestas predefinidas durante el diagnóstico. El resultado muestra los problemas encontrados y si se pudieron solucionar.</p>`;
+                    break;
+                default:
+                    inputText = '';
+                    outputText = '';
+                    description = '';
+            }
+
+            document.getElementById('exampleInput').textContent = inputText;
+            document.getElementById('exampleOutput').textContent = outputText;
+            document.getElementById('exampleDescription').innerHTML = description;
+        }
+    </script>
+</body>
+</html>
