@@ -137,7 +137,7 @@
         }
 
         .card .ver-mas {
-            background-color: #4CAF50;
+            background-color: #4b6eae;
             color: white;
             border: none;
             padding: 5px 10px;
@@ -147,7 +147,7 @@
         }
 
         .card .ver-mas:hover {
-            background-color: #45a049;
+            background-color: #4b6eae;
         }
         
     </style>
@@ -155,7 +155,9 @@
 <body>
     <div class="banner">
         <div class="dropdown">
-            <button class="dropbtn">Menú</button>
+            <div class="logo">
+                <img src="../logo_modulos.png" alt="Logo" class="logo">
+            </div>
             <div class="dropdown-content">
                 <a href="/bat_didactico/index.html">Inicio</a>
                 <a href="/bat_didactico/modulos/modulo1.html">Netsh</a>
@@ -179,6 +181,7 @@
             <select id="command" class="parameter-input" multiple size="5" onchange="showOptions()">
                 <option value="netsh">Netsh</option>
                 <option value="ipconfig">Ipconfig</option>
+                <option value="icals">Icals</option>
             </select>
         </div>
         <div id="commandOptions" class="command-options"></div>
@@ -188,11 +191,11 @@
             <a id="downloadButton" href="#" download="script.bat">Descargar archivo BAT</a>
         </div>
     </div>
-    
     <script>
         const commandDescriptions = {
             netsh: "Netsh es una utilidad de línea de comandos que permite configurar y administrar la red.",
-            ipconfig: "Ipconfig es una utilidad de línea de comandos que muestra la configuración de red del sistema."
+            ipconfig: "Ipconfig es una utilidad de línea de comandos que muestra la configuración de red del sistema.",
+            icacls: "Icacls es una herramienta de línea de comandos para administrar permisos de archivos y directorios."
         };
     
         const netshOptions = {
@@ -243,6 +246,23 @@
             { name: "/flushdns", params: [] }
         ];
     
+        const icaclsOptions = [
+            { name: "/grant", params: [
+                { name: "usuario", placeholder: "Nombre de usuario" },
+                { name: "permisos", placeholder: "Permisos" }
+            ] },
+            { name: "/deny", params: [
+                { name: "usuario", placeholder: "Nombre de usuario" },
+                { name: "permisos", placeholder: "Permisos" }
+            ] },
+            { name: "/remove", params: [
+                { name: "usuario", placeholder: "Nombre de usuario" }
+            ] },
+            { name: "/inheritance", params: [
+                { name: "permisos", placeholder: "Permisos (ej. e, d o r)" }
+            ] }
+        ];
+    
         function showOptions() {
             const selectedCommands = Array.from(document.getElementById('command').selectedOptions).map(option => option.value);
             const optionsDiv = document.getElementById('commandOptions');
@@ -252,16 +272,12 @@
                 // Crear el card para el comando seleccionado
                 const card = document.createElement('div');
                 card.className = 'card';
+                card.id = `${selectedCommand}-card`;
     
                 // Título del comando
                 const title = document.createElement('h2');
                 title.textContent = selectedCommand.charAt(0).toUpperCase() + selectedCommand.slice(1);
                 card.appendChild(title);
-    
-                // Descripción del comando
-                const description = document.createElement('p');
-                description.textContent = commandDescriptions[selectedCommand];
-                card.appendChild(description);
     
                 // Botón "Ver más"
                 const verMasButton = document.createElement('button');
@@ -270,9 +286,15 @@
                 verMasButton.onclick = () => window.location.href = `/bat_didactico/modulos/modulo${getModuleNumber(selectedCommand)}.html`;
                 card.appendChild(verMasButton);
     
+                // Descripción del comando
+                const description = document.createElement('p');
+                description.textContent = commandDescriptions[selectedCommand];
+                card.appendChild(description);
+    
                 // Parámetros principales
                 const parametersDiv = document.createElement('div');
                 parametersDiv.className = 'parameters';
+                parametersDiv.dataset.command = selectedCommand;
     
                 const selectMainOption = document.createElement('select');
                 selectMainOption.className = 'parameter-input';
@@ -297,11 +319,18 @@
                         optionElem.textContent = opt.name;
                         selectMainOption.appendChild(optionElem);
                     });
+                } else if (selectedCommand === 'icacls') {
+                    icaclsOptions.forEach(opt => {
+                        const optionElem = document.createElement('option');
+                        optionElem.value = opt.name;
+                        optionElem.textContent = opt.name;
+                        selectMainOption.appendChild(optionElem);
+                    });
                 }
     
                 selectMainOption.addEventListener('change', () => handleMainOptionChange(selectedCommand, selectMainOption.value));
     
-                parametersDiv.innerHTML += `<label>Opción principal:</label>`;
+                parametersDiv.innerHTML += `<label>Parámetro principal:</label>`;
                 parametersDiv.appendChild(selectMainOption);
     
                 card.appendChild(parametersDiv);
@@ -310,10 +339,10 @@
         }
     
         function handleMainOptionChange(command, mainOption) {
-            const parametersDiv = document.querySelector(`.parameters[data-command="${command}"]`) || document.querySelector('.parameters');
+            const parametersDiv = document.querySelector(`.parameters[data-command="${command}"]`);
     
             // Limpiar sub-opciones y parámetros previos
-            const existingSubOptions = document.querySelector('.sub-options');
+            const existingSubOptions = parametersDiv.querySelector('.sub-options');
             if (existingSubOptions) {
                 existingSubOptions.remove();
             }
@@ -333,7 +362,7 @@
     
                     const defaultOption = document.createElement('option');
                     defaultOption.value = "";
-                    defaultOption.textContent = "Seleccionar sub-opción...";
+                    defaultOption.textContent = "Seleccionar un sub-parámetro...";
                     selectSubOption.appendChild(defaultOption);
     
                     subOptions.forEach(opt => {
@@ -345,17 +374,45 @@
     
                     selectSubOption.addEventListener('change', () => handleSubOptionChange(command, mainOption, selectSubOption.value));
     
-                    subOptionsDiv.innerHTML += `<label>Sub-opción:</label>`;
+                    subOptionsDiv.innerHTML += `<label>Sub-parámetro:</label>`;
                     subOptionsDiv.appendChild(selectSubOption);
+                }
+            } else if (command === 'icacls' && mainOption) {
+                const subOptionsDiv = document.createElement('div');
+                subOptionsDiv.className = 'sub-options';
+    
+                parametersDiv.appendChild(subOptionsDiv);
+    
+                const pathInput = document.createElement('input');
+                pathInput.type = 'text';
+                pathInput.className = 'parameter-input';
+                pathInput.placeholder = 'Ruta';
+                pathInput.dataset.command = command;
+                pathInput.dataset.mainOption = mainOption;
+                subOptionsDiv.appendChild(pathInput);
+    
+                const selectedOption = icaclsOptions.find(opt => opt.name === mainOption);
+                if (selectedOption && selectedOption.params.length > 0) {
+                    selectedOption.params.forEach(param => {
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.className = 'parameter-input';
+                        input.placeholder = param.placeholder;
+                        input.dataset.command = command;
+                        input.dataset.mainOption = mainOption;
+                        input.dataset.param = param.name;
+                        subOptionsDiv.innerHTML += `<label>${param.name}:</label>`;
+                        subOptionsDiv.appendChild(input);
+                    });
                 }
             }
         }
     
         function handleSubOptionChange(command, mainOption, subOption) {
-            const subOptionsDiv = document.querySelector('.sub-options');
+            const subOptionsDiv = document.querySelector(`.parameters[data-command="${command}"] .sub-options`);
     
             // Limpiar parámetros previos
-            const existingParams = document.querySelector('.params');
+            const existingParams = subOptionsDiv.querySelector('.params');
             if (existingParams) {
                 existingParams.remove();
             }
@@ -376,7 +433,6 @@
                     input.dataset.mainOption = mainOption;
                     input.dataset.subOption = subOption;
                     input.dataset.param = param.name;
-    
                     paramsDiv.innerHTML += `<label>${param.name}:</label>`;
                     paramsDiv.appendChild(input);
                 });
@@ -418,6 +474,24 @@
                             commandString += ` ${paramName}=${paramValue}`;
                         }
                     });
+                } else if (selectedCommand === 'icacls') {
+                    const pathInput = document.querySelector(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                    const pathValue = pathInput.value;
+                    if (!pathValue) {
+                        alert('Por favor, proporciona la ruta');
+                        return;
+                    }
+    
+                    commandString += ` ${pathValue}`;
+    
+                    const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                    paramsInputs.forEach(input => {
+                        const paramName = input.dataset.param;
+                        const paramValue = input.value;
+                        if (paramValue) {
+                            commandString += ` ${paramName}=${paramValue}`;
+                        }
+                    });
                 }
     
                 outputDiv.textContent += commandString + '\n';
@@ -442,7 +516,6 @@
             showOptions();
         });
     </script>
-    
     
 </body>
 </html>

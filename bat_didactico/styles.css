@@ -7,10 +7,13 @@ body {
 .banner {
     background-color: #333;
     color: #fff;
-    padding: 10px 20px;
+    padding: 5px 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que el banner se mantenga sobre otros contenidos */
 }
 
 .dropdown {
@@ -19,8 +22,6 @@ body {
 }
 
 .dropbtn {
-    background-color: #333;
-    color: white;
     border: none;
     cursor: pointer;
     padding: 10px;
