@@ -3,56 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bat Didactico</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Bat Didáctico</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #ded0d07e;
         }
 
-        /* Estilos del banner */
         .banner {
             background-color: #f7f7f7;
-            /* Color blanco pastel */
             color: #333;
-            /* Color de texto oscuro */
-            position: relative;
-            padding: 10px 10px;
-            /* Espaciado interno reducido */
+            padding: 10px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            /* Espacio entre los elementos */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            /* Sombra */
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        /* Estilos del banner */
-        .banner {
-            background-color: #f7f7f7;
-            /* Color blanco pastel */
-            color: #333;
-            /* Color de texto oscuro */
-            position: relative;
-            padding: 5px 0px;
-            /* Espaciado interno */
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            /* Espacio entre los elementos */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            /* Sombra */
-        }
-
-        /* Estilos de los logos */
         .banner .logo {
             height: 40px;
-            /* Tamaño del logo */
             padding: 0 15px;
-            /* Espaciado interno horizontal */
         }
 
         .logomenu {
@@ -64,17 +41,14 @@
             display: flex;
             align-items: center;
             margin-left: auto;
-            /* Empuja los logos a la derecha */
         }
 
         .logos img {
             margin-right: 10px;
-            /* Espacio entre los logos */
         }
 
         .logos img:last-child {
-            margin-right: 20px;
-            /* Asegura que el último logo no esté pegado al borde derecho */
+            margin-right: 0;
         }
 
         .dropdown {
@@ -87,13 +61,11 @@
             color: white;
             padding: 10px;
             font-size: 14px;
-            /* Reduce el tamaño de la fuente */
             border: none;
             cursor: pointer;
         }
 
-        .dropdown-content,
-        .dropdown-content-sub {
+        .dropdown-content {
             display: none;
             position: absolute;
             background-color: #f9f9f9;
@@ -102,18 +74,15 @@
             z-index: 1;
         }
 
-        .dropdown-content a,
-        .dropdown-content-sub a {
+        .dropdown-content a {
             color: black;
             padding: 8px 12px;
             text-decoration: none;
             display: block;
             font-size: 12px;
-            /* Reduce el tamaño de la fuente */
         }
 
-        .dropdown-content a:hover,
-        .dropdown-content-sub a:hover {
+        .dropdown-content a:hover {
             background-color: #f1f1f1;
         }
 
@@ -121,24 +90,114 @@
             display: block;
         }
 
-        .dropdown-submenu:hover .dropdown-content-sub {
-            display: block;
+        .title {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
         }
 
-        .dropdown-submenu {
-            position: relative;
+        .container {
+            padding: 20px;
+            text-align: center;
         }
 
-        .dropdown-content-sub {
-            top: 0;
-            left: 100%;
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('background.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            padding: 100px 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+            animation: slideInLeft 1s ease-in-out;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            animation: slideInRight 1s ease-in-out;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            gap: 20px;
+        }
+
+        .feature {
+            background: #f7f7f7;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 30%;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            transition: transform 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature h2 {
+            font-size: 1.8em;
+            margin-top: 0;
+            color: #2650aa;
+        }
+
+        .feature p {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .feature .btn-more {
+            background-color: #2a22c4;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .feature .btn-more:hover {
+            background-color: #2847c3;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
-</head> 
+</head>
 <body>
     <div class="banner">
-      
-        
         <div class="dropdown">
             <div class="logo">
                 <img src="logo_modulos.png" alt="Logo" class="logo">
@@ -157,12 +216,39 @@
                 </div>
             </div>
         </div>
-        
+        <div class="title">Bat Didáctico</div>
         <div class="logos">
             <img src="ufps.png" alt="Logo" class="logo">
-
             <img src="logo.png" alt="Logo" class="logo">
         </div>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Bienvenido a Bat Didáctico</h1>
+            <p>Un aplicativo web para aprender y generar scripts BAT de manera sencilla.</p>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h2>Aprende comandos</h2>
+                <p>Explora y aprende a usar comandos esenciales de Windows como Netsh, Ipconfig, Icacls, Logman y muchos más. Haz clic en el logo del menú para ver los módulos.</p>
+                <img src="logo_modulos.png" alt="Logo" class="logo" style="height: 60px;">
+            </div>
+            <div class="feature">
+                <h2>Generador de Scripts</h2>
+                <p>Crea tus propios scripts BAT personalizados de forma fácil y rápida con nuestro generador de scripts interactivo.</p>
+                <a href="/aplicativo-bat/bat_didactico/modulos/custom.html" class="btn-more">Ver más</a>
+            </div>
+            <div class="feature">
+                <h2>Documentación Completa</h2>
+                <p>Accede a documentación detallada y ejemplos prácticos para cada comando y módulo disponible en la plataforma.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>UFPS - 2024</p>
     </div>
 </body>
 </html>
