@@ -159,363 +159,455 @@
                 <img src="../logo_modulos.png" alt="Logo" class="logo">
             </div>
             <div class="dropdown-content">
-                <a href="/bat_didactico/index.html">Inicio</a>
-                <a href="/bat_didactico/modulos/modulo1.html">Netsh</a>
-                <a href="/bat_didactico/modulos/modulo2.html">Ipconfig</a>
-                <a href="/bat_didactico/modulos/modulo3.html">Icacls</a>
-                <a href="/bat_didactico/modulos/modulo4.html">Logman</a>
-                <a href="/bat_didactico/modulos/modulo5.html">Findstr</a>
-                <a href="/bat_didactico/modulos/modulo6.html">Msdt</a>
-                <a href="/bat_didactico/modulos/modulo7.html">Schtasks</a>
-                <a href="/bat_didactico/modulos/modulo8.html">Tasklist</a>
+                <a href="/aplicativo-bat/bat_didactico/index.html">Inicio</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo1.html">Netsh</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo2.html">Ipconfig</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo3.html">Icacls</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo4.html">Logman</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo5.html">Findstr</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo6.html">Msdt</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo7.html">Schtasks</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo8.html">Tasklist</a>
             </div>
         </div>
         <div class="logo">
             <img src="../logo.png" alt="Logo" class="logo">
         </div>
     </div>
-    <div class="container">
-        <h1>Generador de BAT</h1>
-        <div class="command-select">
-            <label for="command">Selecciona uno o más comandos:</label>
-            <select id="command" class="parameter-input" multiple size="5" onchange="showOptions()">
-                <option value="netsh">Netsh</option>
-                <option value="ipconfig">Ipconfig</option>
-                <option value="icals">Icals</option>
-            </select>
+        <div class="container">
+            <h1>Generador de BAT</h1>
+            <div class="command-select">
+                <label for="command">Selecciona uno o más comandos:</label>
+                <select id="command" class="parameter-input" multiple size="5" onchange="showOptions()">
+                    <option value="netsh">Netsh</option>
+                    <option value="ipconfig">Ipconfig</option>
+                    <option value="icacls">Icacls</option>
+                    <option value="logman">Logman</option>
+                    <option value="findstr">Findstr</option>
+                </select>
+            </div>
+            <div id="commandOptions" class="command-options"></div>
+            <button class="generate-button" onclick="generateBat()">Generar</button>
+            <div id="output" class="output code-block"></div>
+            <div id="downloadLink" class="download-link" style="display: none;">
+                <a id="downloadButton" href="#" download="script.bat">Descargar archivo BAT</a>
+            </div>
         </div>
-        <div id="commandOptions" class="command-options"></div>
-        <button class="generate-button" onclick="generateBat()">Generar</button>
-        <div id="output" class="output code-block"></div>
-        <div id="downloadLink" class="download-link" style="display: none;">
-            <a id="downloadButton" href="#" download="script.bat">Descargar archivo BAT</a>
-        </div>
-    </div>
-    <script>
-        const commandDescriptions = {
-            netsh: "Netsh es una utilidad de línea de comandos que permite configurar y administrar la red.",
-            ipconfig: "Ipconfig es una utilidad de línea de comandos que muestra la configuración de red del sistema.",
-            icacls: "Icacls es una herramienta de línea de comandos para administrar permisos de archivos y directorios."
-        };
-    
-        const netshOptions = {
-            interface: [
-                { name: "show interface", params: [] },
-                { name: "set interface", params: [{ name: "name", placeholder: "Nombre de la interfaz" }] },
-                { name: "ip set address", params: [
-                    { name: "name", placeholder: "Nombre de la interfaz" },
-                    { name: "source", placeholder: "Origen de la dirección IP (ej. static, dhcp)" },
-                    { name: "addr", placeholder: "Dirección IP (cuando source es static)" },
-                    { name: "mask", placeholder: "Máscara de subred (cuando source es static)" },
-                    { name: "gateway", placeholder: "Puerta de enlace (cuando source es static)" },
-                    { name: "gwmetric", placeholder: "Métrica de la puerta de enlace (opcional)" }
+        
+        <script>
+            const commandDescriptions = {
+                netsh: "Permite configurar y administrar la red.",
+                ipconfig: "Muestra la configuración de red del sistema.",
+                icacls: "Permite mostrar y modificar las listas de control de acceso (ACL) de archivos y directorios.",
+                logman: "Permite a los administradores y usuarios avanzados capturar y analizar datos sobre el rendimiento del sistema y aplicaciones.",
+                findstr: "Busca patrones de texto en archivos."
+            };
+        
+            const netshOptions = {
+                interface: [
+                    { name: "show interface", params: [] },
+                    { name: "set interface", params: [{ name: "name", placeholder: "Nombre de la interfaz" }] },
+                    { name: "ip set address", params: [
+                        { name: "name", placeholder: "Nombre de la interfaz" },
+                        { name: "source", placeholder: "Origen de la dirección IP (ej. static, dhcp)" },
+                        { name: "addr", placeholder: "Dirección IP (cuando source es static)" },
+                        { name: "mask", placeholder: "Máscara de subred (cuando source es static)" },
+                        { name: "gateway", placeholder: "Puerta de enlace (cuando source es static)" },
+                        { name: "gwmetric", placeholder: "Métrica de la puerta de enlace (opcional)" }
+                    ] },
+                    { name: "ipv4 set address", params: [
+                        { name: "name", placeholder: "Nombre de la interfaz" },
+                        { name: "source", placeholder: "Origen de la dirección IP (ej. static, dhcp)" },
+                        { name: "addr", placeholder: "Dirección IP (cuando source es static)" },
+                        { name: "mask", placeholder: "Máscara de subred (cuando source es static)" },
+                        { name: "gateway", placeholder: "Puerta de enlace (cuando source es static)" },
+                        { name: "gwmetric", placeholder: "Métrica de la puerta de enlace (opcional)" }
+                    ] },
+                    { name: "ipv4 set dnsservers", params: [
+                        { name: "name", placeholder: "Nombre de la interfaz" },
+                        { name: "source", placeholder: "Origen de los servidores DNS (ej. static, dhcp)" },
+                        { name: "addr", placeholder: "Dirección IP del servidor DNS" },
+                        { name: "register", placeholder: "Registro DNS (ej. primary, none)" }
+                    ] },
+                    { name: "ipv4 add dnsservers", params: [
+                        { name: "name", placeholder: "Nombre de la interfaz" },
+                        { name: "addr", placeholder: "Dirección IP del servidor DNS" },
+                        { name: "index", placeholder: "Índice de orden de los servidores DNS" }
+                    ] }
+                ],
+                wlan: [
+                    { name: "show interfaces", params: [] },
+                    { name: "show profiles", params: [] },
+                    { name: "add profile", params: [{ name: "filename", placeholder: "Ruta del archivo XML del perfil" }] },
+                    { name: "delete profile", params: [{ name: "name", placeholder: "Nombre del perfil" }] }
+                ]
+            };
+        
+            const ipconfigOptions = [
+                { name: "/all", params: [] },
+                { name: "/release", params: [] },
+                { name: "/renew", params: [] },
+                { name: "/displaydns", params: [] },
+                { name: "/flushdns", params: [] }
+            ];
+        
+            const icaclsOptions = [
+                { name: "/remove", params: [{ name: "user", placeholder: "Usuario" }] },
+                { name: "/grant", params: [{ name: "user", placeholder: "Usuario" }, { name: "permissions", placeholder: "Permisos" }] },
+                { name: "/deny", params: [{ name: "user", placeholder: "Usuario" }, { name: "permissions", placeholder: "Permisos" }] },
+                { name: "/inheritance", params: [{ name: "value", placeholder: "Valor de herencia (e, d, r)" }] }
+            ];
+        
+            const logmanOptions = [
+                { name: "create counter", params: [
+                    { name: "Nombre", placeholder: "Nombre de la tarea" },
+                    { name: "Contadores de rendimiento (-c)", placeholder: "Contador de rendimiento (ej. \\Processor(_Total)\\% Processor Time)" },
+                    { name: "Intervalo de muestreo (-si)", placeholder: "Intervalo de muestreo en segundos" },
+                    { name: "Ubicación (-o)", placeholder: "Inicio de la tarea (opcional)" }
                 ] },
-                { name: "ipv4 set address", params: [
-                    { name: "name", placeholder: "Nombre de la interfaz" },
-                    { name: "source", placeholder: "Origen de la dirección IP (ej. static, dhcp)" },
-                    { name: "addr", placeholder: "Dirección IP (cuando source es static)" },
-                    { name: "mask", placeholder: "Máscara de subred (cuando source es static)" },
-                    { name: "gateway", placeholder: "Puerta de enlace (cuando source es static)" },
-                    { name: "gwmetric", placeholder: "Métrica de la puerta de enlace (opcional)" }
+                { name: "delete", params: [
+                    { name: "Nombre", placeholder: "Nombre de la tarea" }
                 ] },
-                { name: "ipv4 set dnsservers", params: [
-                    { name: "name", placeholder: "Nombre de la interfaz" },
-                    { name: "source", placeholder: "Origen de los servidores DNS (ej. static, dhcp)" },
-                    { name: "addr", placeholder: "Dirección IP del servidor DNS" },
-                    { name: "register", placeholder: "Registro DNS (ej. primary, none)" }
+                { name: "query", params: [
+                    { name: "Nombre", placeholder: "Nombre de la tarea (opcional)" }
                 ] },
-                { name: "ipv4 add dnsservers", params: [
-                    { name: "name", placeholder: "Nombre de la interfaz" },
-                    { name: "addr", placeholder: "Dirección IP del servidor DNS" },
-                    { name: "index", placeholder: "Índice de orden de los servidores DNS" }
+                { name: "start", params: [
+                    { name: "Nombre", placeholder: "Nombre de la tarea" }
+                ] },
+                { name: "stop", params: [
+                    { name: "Nombre", placeholder: "Nombre de la tarea" }
                 ] }
-            ],
-            wlan: [
-                { name: "show interfaces", params: [] },
-                { name: "show profiles", params: [] },
-                { name: "add profile", params: [{ name: "filename", placeholder: "Ruta del archivo XML del perfil" }] },
-                { name: "delete profile", params: [{ name: "name", placeholder: "Nombre del perfil" }] }
-            ]
-        };
-    
-        const ipconfigOptions = [
-            { name: "/all", params: [] },
-            { name: "/release", params: [] },
-            { name: "/renew", params: [] },
-            { name: "/displaydns", params: [] },
-            { name: "/flushdns", params: [] }
-        ];
-    
-        const icaclsOptions = [
-            { name: "/grant", params: [
-                { name: "usuario", placeholder: "Nombre de usuario" },
-                { name: "permisos", placeholder: "Permisos" }
-            ] },
-            { name: "/deny", params: [
-                { name: "usuario", placeholder: "Nombre de usuario" },
-                { name: "permisos", placeholder: "Permisos" }
-            ] },
-            { name: "/remove", params: [
-                { name: "usuario", placeholder: "Nombre de usuario" }
-            ] },
-            { name: "/inheritance", params: [
-                { name: "permisos", placeholder: "Permisos (ej. e, d o r)" }
-            ] }
-        ];
-    
-        function showOptions() {
-            const selectedCommands = Array.from(document.getElementById('command').selectedOptions).map(option => option.value);
-            const optionsDiv = document.getElementById('commandOptions');
-            optionsDiv.innerHTML = '';
-    
-            selectedCommands.forEach(selectedCommand => {
-                // Crear el card para el comando seleccionado
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.id = `${selectedCommand}-card`;
-    
-                // Título del comando
-                const title = document.createElement('h2');
-                title.textContent = selectedCommand.charAt(0).toUpperCase() + selectedCommand.slice(1);
-                card.appendChild(title);
-    
-                // Botón "Ver más"
-                const verMasButton = document.createElement('button');
-                verMasButton.className = 'ver-mas';
-                verMasButton.textContent = 'Ver más';
-                verMasButton.onclick = () => window.location.href = `/bat_didactico/modulos/modulo${getModuleNumber(selectedCommand)}.html`;
-                card.appendChild(verMasButton);
-    
-                // Descripción del comando
-                const description = document.createElement('p');
-                description.textContent = commandDescriptions[selectedCommand];
-                card.appendChild(description);
-    
-                // Parámetros principales
-                const parametersDiv = document.createElement('div');
-                parametersDiv.className = 'parameters';
-                parametersDiv.dataset.command = selectedCommand;
-    
-                const selectMainOption = document.createElement('select');
-                selectMainOption.className = 'parameter-input';
-                selectMainOption.dataset.command = selectedCommand;
-    
-                const defaultOption = document.createElement('option');
-                defaultOption.value = "";
-                defaultOption.textContent = "Seleccionar opción...";
-                selectMainOption.appendChild(defaultOption);
-    
-                if (selectedCommand === 'netsh') {
-                    ["interface", "wlan"].forEach(opt => {
-                        const optionElem = document.createElement('option');
-                        optionElem.value = opt;
-                        optionElem.textContent = opt;
-                        selectMainOption.appendChild(optionElem);
-                    });
-                } else if (selectedCommand === 'ipconfig') {
-                    ipconfigOptions.forEach(opt => {
-                        const optionElem = document.createElement('option');
-                        optionElem.value = opt.name;
-                        optionElem.textContent = opt.name;
-                        selectMainOption.appendChild(optionElem);
-                    });
-                } else if (selectedCommand === 'icacls') {
-                    icaclsOptions.forEach(opt => {
-                        const optionElem = document.createElement('option');
-                        optionElem.value = opt.name;
-                        optionElem.textContent = opt.name;
-                        selectMainOption.appendChild(optionElem);
-                    });
-                }
-    
-                selectMainOption.addEventListener('change', () => handleMainOptionChange(selectedCommand, selectMainOption.value));
-    
-                parametersDiv.innerHTML += `<label>Parámetro principal:</label>`;
-                parametersDiv.appendChild(selectMainOption);
-    
-                card.appendChild(parametersDiv);
-                optionsDiv.appendChild(card);
-            });
-        }
-    
-        function handleMainOptionChange(command, mainOption) {
-            const parametersDiv = document.querySelector(`.parameters[data-command="${command}"]`);
-    
-            // Limpiar sub-opciones y parámetros previos
-            const existingSubOptions = parametersDiv.querySelector('.sub-options');
-            if (existingSubOptions) {
-                existingSubOptions.remove();
-            }
-    
-            if (command === 'netsh' && mainOption) {
-                const subOptionsDiv = document.createElement('div');
-                subOptionsDiv.className = 'sub-options';
-    
-                parametersDiv.appendChild(subOptionsDiv);
-    
-                const subOptions = netshOptions[mainOption];
-                if (subOptions) {
-                    const selectSubOption = document.createElement('select');
-                    selectSubOption.className = 'parameter-input';
-                    selectSubOption.dataset.command = command;
-                    selectSubOption.dataset.mainOption = mainOption;
-    
+            ];
+
+            function showOptions() {
+                const selectedCommands = Array.from(document.getElementById('command').selectedOptions).map(option => option.value);
+                const optionsDiv = document.getElementById('commandOptions');
+                optionsDiv.innerHTML = '';
+        
+                selectedCommands.forEach(selectedCommand => {
+                    // Crear el card para el comando seleccionado
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.id = `${selectedCommand}-card`;
+        
+                    // Título del comando
+                    const title = document.createElement('h2');
+                    title.textContent = selectedCommand.charAt(0).toUpperCase() + selectedCommand.slice(1);
+                    card.appendChild(title);
+        
+                    // Botón "Ver más"
+                    const verMasButton = document.createElement('button');
+                    verMasButton.className = 'ver-mas';
+                    verMasButton.textContent = 'Ver más';
+                    verMasButton.onclick = () => window.location.href = `/bat_didactico/modulos/modulo${getModuleNumber(selectedCommand)}.html`;
+                    card.appendChild(verMasButton);
+        
+                    // Descripción del comando
+                    const description = document.createElement('p');
+                    description.textContent = commandDescriptions[selectedCommand];
+                    card.appendChild(description);
+        
+                    // Parámetros principales
+                    const parametersDiv = document.createElement('div');
+                    parametersDiv.className = 'parameters';
+                    parametersDiv.dataset.command = selectedCommand;
+        
+                    // Añadir campo para la ruta en icacls
+                    if (selectedCommand === 'icacls') {
+                        const rutaInput = document.createElement('input');
+                        rutaInput.type = 'text';
+                        rutaInput.className = 'parameter-input';
+                        rutaInput.placeholder = 'Ruta';
+                        rutaInput.dataset.command = selectedCommand;
+                        rutaInput.dataset.param = 'ruta';
+                        parametersDiv.appendChild(rutaInput);
+                    } 
+        
+                    const selectMainOption = document.createElement('select');
+                    selectMainOption.className = 'parameter-input';
+                    selectMainOption.dataset.command = selectedCommand;
+        
                     const defaultOption = document.createElement('option');
                     defaultOption.value = "";
-                    defaultOption.textContent = "Seleccionar un sub-parámetro...";
-                    selectSubOption.appendChild(defaultOption);
-    
-                    subOptions.forEach(opt => {
+                    defaultOption.textContent = "Seleccionar opción...";
+                    selectMainOption.appendChild(defaultOption);
+        
+                    if (selectedCommand === 'netsh') {
+                        ["interface", "wlan"].forEach(opt => {
+                            const optionElem = document.createElement('option');
+                            optionElem.value = opt;
+                            optionElem.textContent = opt;
+                            selectMainOption.appendChild(optionElem);
+                        });
+                    } else if (selectedCommand === 'ipconfig') {
+                        ipconfigOptions.forEach(opt => {
+                            const optionElem = document.createElement('option');
+                            optionElem.value = opt.name;
+                            optionElem.textContent = opt.name;
+                            selectMainOption.appendChild(optionElem);
+                        });
+                    } else if (selectedCommand === 'icacls') {
+                        icaclsOptions.forEach(opt => {
+                            const optionElem = document.createElement('option');
+                            optionElem.value = opt.name;
+                            optionElem.textContent = opt.name;
+                            selectMainOption.appendChild(optionElem);
+                        });
+                    } else if (selectedCommand === 'logman') {
+                     logmanOptions.forEach(opt => {
                         const optionElem = document.createElement('option');
                         optionElem.value = opt.name;
                         optionElem.textContent = opt.name;
-                        selectSubOption.appendChild(optionElem);
-                    });
-    
-                    selectSubOption.addEventListener('change', () => handleSubOptionChange(command, mainOption, selectSubOption.value));
-    
-                    subOptionsDiv.innerHTML += `<label>Sub-parámetro:</label>`;
-                    subOptionsDiv.appendChild(selectSubOption);
+                        selectMainOption.appendChild(optionElem);
+                        });
+                    }
+        
+                    selectMainOption.addEventListener('change', () => handleMainOptionChange(selectedCommand, selectMainOption.value));
+        
+                    parametersDiv.innerHTML += `<label>Parámetro principal:</label>`;
+                    parametersDiv.appendChild(selectMainOption);
+        
+                    card.appendChild(parametersDiv);
+                    optionsDiv.appendChild(card);
+                });
+            }
+        
+            function handleMainOptionChange(command, mainOption) {
+                const parametersDiv = document.querySelector(`.parameters[data-command="${command}"]`);
+        
+                // Limpiar sub-opciones y parámetros previos
+                const existingSubOptions = parametersDiv.querySelector('.sub-options');
+                if (existingSubOptions) {
+                    existingSubOptions.remove();
                 }
-            } else if (command === 'icacls' && mainOption) {
-                const subOptionsDiv = document.createElement('div');
-                subOptionsDiv.className = 'sub-options';
-    
-                parametersDiv.appendChild(subOptionsDiv);
-    
-                const pathInput = document.createElement('input');
-                pathInput.type = 'text';
-                pathInput.className = 'parameter-input';
-                pathInput.placeholder = 'Ruta';
-                pathInput.dataset.command = command;
-                pathInput.dataset.mainOption = mainOption;
-                subOptionsDiv.appendChild(pathInput);
-    
-                const selectedOption = icaclsOptions.find(opt => opt.name === mainOption);
-                if (selectedOption && selectedOption.params.length > 0) {
-                    selectedOption.params.forEach(param => {
+                const existingParams = parametersDiv.querySelector('.params');
+                if (existingParams) {
+                    existingParams.remove();
+                }
+        
+                if (command === 'netsh' && mainOption) {
+                    const subOptionsDiv = document.createElement('div');
+                    subOptionsDiv.className = 'sub-options';
+        
+                    parametersDiv.appendChild(subOptionsDiv);
+        
+                    const subOptions = netshOptions[mainOption];
+                    if (subOptions) {
+                        const selectSubOption = document.createElement('select');
+                        selectSubOption.className = 'parameter-input';
+                        selectSubOption.dataset.command = command;
+                        selectSubOption.dataset.mainOption = mainOption;
+        
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = "";
+                        defaultOption.textContent = "Seleccionar sub-opción...";
+                        selectSubOption.appendChild(defaultOption);
+        
+                        subOptions.forEach(opt => {
+                            const optionElem = document.createElement('option');
+                            optionElem.value = opt.name;
+                            optionElem.textContent = opt.name;
+                            selectSubOption.appendChild(optionElem);
+                        });
+        
+                        selectSubOption.addEventListener('change', () => handleSubOptionChange(command, mainOption, selectSubOption.value));
+        
+                        subOptionsDiv.innerHTML += `<label>Sub-opciones:</label>`;
+                        subOptionsDiv.appendChild(selectSubOption);
+                    }
+                } else if (command === 'icacls' && mainOption) {
+                    const paramsDiv = document.createElement('div');
+                    paramsDiv.className = 'params';
+        
+                    parametersDiv.appendChild(paramsDiv);
+        
+                    const selectedOption = icaclsOptions.find(opt => opt.name === mainOption);
+                    if (selectedOption && selectedOption.params.length > 0) {
+                        selectedOption.params.forEach(param => {
+                            const input = document.createElement('input');
+                            input.type = 'text';
+                            input.className = 'parameter-input';
+                            input.placeholder = param.placeholder;
+                            input.dataset.command = command;
+                            input.dataset.mainOption = mainOption;
+                            input.dataset.param = param.name;
+                            paramsDiv.innerHTML += `<label>${param.name}:</label>`;
+                            paramsDiv.appendChild(input);
+                        });
+                    }
+                } else if (command === 'logman' && mainOption) {
+                        const paramsDiv = document.createElement('div');
+                        paramsDiv.className = 'params';
+
+                        parametersDiv.appendChild(paramsDiv);
+
+                        const selectedOption = logmanOptions.find(opt => opt.name === mainOption);
+                        if (selectedOption && selectedOption.params.length > 0) {
+                            selectedOption.params.forEach(param => {
+                                const input = document.createElement('input');
+                                input.type = 'text';
+                                input.className = 'parameter-input';
+                                input.placeholder = param.placeholder;
+                                input.dataset.command = command;
+                                input.dataset.mainOption = mainOption;
+                                input.dataset.param = param.name;
+                                paramsDiv.innerHTML += `<label>${param.name}:</label>`;
+                                paramsDiv.appendChild(input);
+                          });
+                    }
+                }
+            }
+        
+            function handleSubOptionChange(command, mainOption, subOption) {
+                const subOptionsDiv = document.querySelector(`.parameters[data-command="${command}"] .sub-options`);
+        
+                // Limpiar parámetros previos
+                const existingParams = subOptionsDiv.querySelector('.params');
+                if (existingParams) {
+                    existingParams.remove();
+                }
+        
+                const paramsDiv = document.createElement('div');
+                paramsDiv.className = 'params';
+        
+                subOptionsDiv.appendChild(paramsDiv);
+        
+                const selectedSubOption = netshOptions[mainOption].find(opt => opt.name === subOption);
+                if (selectedSubOption && selectedSubOption.params.length > 0) {
+                    selectedSubOption.params.forEach(param => {
                         const input = document.createElement('input');
                         input.type = 'text';
                         input.className = 'parameter-input';
                         input.placeholder = param.placeholder;
                         input.dataset.command = command;
                         input.dataset.mainOption = mainOption;
+                        input.dataset.subOption = subOption;
                         input.dataset.param = param.name;
-                        subOptionsDiv.innerHTML += `<label>${param.name}:</label>`;
-                        subOptionsDiv.appendChild(input);
+                        paramsDiv.innerHTML += `<label>${param.name}:</label>`;
+                        paramsDiv.appendChild(input);
                     });
                 }
             }
-        }
-    
-        function handleSubOptionChange(command, mainOption, subOption) {
-            const subOptionsDiv = document.querySelector(`.parameters[data-command="${command}"] .sub-options`);
-    
-            // Limpiar parámetros previos
-            const existingParams = subOptionsDiv.querySelector('.params');
-            if (existingParams) {
-                existingParams.remove();
-            }
-    
-            const paramsDiv = document.createElement('div');
-            paramsDiv.className = 'params';
-    
-            subOptionsDiv.appendChild(paramsDiv);
-    
-            const selectedSubOption = netshOptions[mainOption].find(opt => opt.name === subOption);
-            if (selectedSubOption && selectedSubOption.params.length > 0) {
-                selectedSubOption.params.forEach(param => {
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.className = 'parameter-input';
-                    input.placeholder = param.placeholder;
-                    input.dataset.command = command;
-                    input.dataset.mainOption = mainOption;
-                    input.dataset.subOption = subOption;
-                    input.dataset.param = param.name;
-                    paramsDiv.innerHTML += `<label>${param.name}:</label>`;
-                    paramsDiv.appendChild(input);
+        
+            function generateBat() {
+                const selectedCommands = Array.from(document.getElementById('command').selectedOptions).map(option => option.value);
+                const outputDiv = document.getElementById('output');
+                outputDiv.textContent = '';
+        
+                selectedCommands.forEach(selectedCommand => {
+                    const mainOptionSelect = document.querySelector(`select[data-command="${selectedCommand}"]`);
+                    const mainOption = mainOptionSelect.value;
+        
+                    if (!mainOption) {
+                        alert('Por favor, selecciona un parámetro principal');
+                        return;
+                    }
+        
+                    let commandString = `${selectedCommand}`;
+        
+                    if (selectedCommand === 'netsh') {
+                        const subOptionSelect = document.querySelector(`select[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                        const subOption = subOptionSelect.value;
+        
+                        if (!subOption) {
+                            alert('Por favor, selecciona un sub-parámetro');
+                            return;
+                        }
+        
+                        commandString += ` ${mainOption} ${subOption}`;
+        
+                        const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"][data-sub-option="${subOption}"]`);
+                        paramsInputs.forEach(input => {
+                            const paramName = input.dataset.param;
+                            const paramValue = input.value;
+                            if (paramValue) {
+                                commandString += ` ${paramName}=${paramValue}`;
+                            }
+                        });
+                    } else if (selectedCommand === 'ipconfig') {
+                        commandString += ` ${mainOption}`;
+                    } else if (selectedCommand === 'icacls') {
+                        const rutaInput = document.querySelector(`input[data-command="${selectedCommand}"][data-param="ruta"]`).value;
+                        if (!rutaInput) {
+                            alert('Por favor, introduce una ruta');
+                            return;
+                        }
+                        commandString += ` "${rutaInput}" ${mainOption}`;
+        
+                        const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                        let user = '';
+                        let permissions = '';
+                        paramsInputs.forEach(input => {
+                            const paramName = input.dataset.param;
+                            const paramValue = input.value;
+                            if (paramValue) {
+                                if (mainOption === '/remove') {
+                                    commandString = `icacls ${rutaInput} ${mainOption} ${paramValue}`;
+                                } else if (mainOption === '/grant' || mainOption === '/deny') {
+                                    if (paramName === 'user') {
+                                        user = paramValue;
+                                    } else if (paramName === 'permissions') {
+                                        permissions = paramValue;
+                                    }
+                                    commandString = `icacls ${rutaInput} ${mainOption} ${user}:${permissions}`;
+                                } else if (mainOption === '/inheritance') {
+                                    commandString = `icacls ${rutaInput} ${mainOption}:${paramValue}`;
+                                }
+                            }
+                        });
+                    } else if (selectedCommand === 'logman') {
+                        commandString += ` ${mainOption}`;
+
+                        const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                        let nombre = '';
+                        let contadores = '';
+                        let intervalo = '';
+                        let ubicacion = '';
+                        paramsInputs.forEach(input => {
+                            const paramName = input.dataset.param;
+                            const paramValue = input.value.trim();
+                            if (paramValue) {
+                                commandString += ` ${paramValue}`;
+                                if (mainOption === 'stop' || mainOption === 'delete' || mainOption === 'start' || mainOption === 'query'){
+                                    commandString = `logman ${mainOption} ${paramValue}`;
+                                } else if (mainOption === 'create counter') {
+                                    if (paramName === 'Nombre') {
+                                        nombre = paramValue;
+                                    } else if (paramName === 'Contadores de rendimiento (-c)') {
+                                        contadores = paramValue;
+                                    } else if (paramName === 'Intervalo de muestreo (-si)') {
+                                        intervalo = paramValue;
+                                    } else if (paramName === 'Ubicación (-o)') {
+                                        ubicacion = paramValue;
+                                    }
+                                    commandString = `logman ${mainOption} ${nombre} -c ${contadores} si ${intervalo} -o ${ubicacion}`;
+                                } 
+                            }
+                            
+                        });
+                    }
+        
+                    outputDiv.textContent += commandString + '\n';
+        
+                    const downloadLink = document.getElementById('downloadLink');
+                    downloadLink.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(outputDiv.textContent);
+                    downloadLink.style.display = 'block';
                 });
             }
-        }
-    
-        function generateBat() {
-            const selectedCommands = Array.from(document.getElementById('command').selectedOptions).map(option => option.value);
-            const outputDiv = document.getElementById('output');
-            outputDiv.textContent = '';
-    
-            selectedCommands.forEach(selectedCommand => {
-                const mainOptionSelect = document.querySelector(`select[data-command="${selectedCommand}"]`);
-                const mainOption = mainOptionSelect.value;
-    
-                if (!mainOption) {
-                    alert('Por favor, selecciona una opción principal');
-                    return;
-                }
-    
-                let commandString = `${selectedCommand} ${mainOption}`;
-    
-                if (selectedCommand === 'netsh') {
-                    const subOptionSelect = document.querySelector(`select[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
-                    const subOption = subOptionSelect.value;
-    
-                    if (!subOption) {
-                        alert('Por favor, selecciona una sub-opción');
-                        return;
-                    }
-    
-                    commandString += ` ${subOption}`;
-    
-                    const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"][data-sub-option="${subOption}"]`);
-                    paramsInputs.forEach(input => {
-                        const paramName = input.dataset.param;
-                        const paramValue = input.value;
-                        if (paramValue) {
-                            commandString += ` ${paramName}=${paramValue}`;
-                        }
-                    });
-                } else if (selectedCommand === 'icacls') {
-                    const pathInput = document.querySelector(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
-                    const pathValue = pathInput.value;
-                    if (!pathValue) {
-                        alert('Por favor, proporciona la ruta');
-                        return;
-                    }
-    
-                    commandString += ` ${pathValue}`;
-    
-                    const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
-                    paramsInputs.forEach(input => {
-                        const paramName = input.dataset.param;
-                        const paramValue = input.value;
-                        if (paramValue) {
-                            commandString += ` ${paramName}=${paramValue}`;
-                        }
-                    });
-                }
-    
-                outputDiv.textContent += commandString + '\n';
-    
-                const downloadLink = document.getElementById('downloadLink');
-                downloadLink.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(outputDiv.textContent);
-                downloadLink.style.display = 'block';
+        
+            function getModuleNumber(command) {
+                const modules = {
+                    netsh: 1,
+                    ipconfig: 2,
+                    icacls: 3, 
+                    logman: 4
+                };
+                return modules[command] || 1;
+            }
+        
+            document.addEventListener('DOMContentLoaded', () => {
+                showOptions();
             });
-        }
-    
-        function getModuleNumber(command) {
-            const modules = {
-                netsh: 1,
-                ipconfig: 2,
-                icacls: 3,
-                // Agregar más comandos y sus números de módulo aquí
-            };
-            return modules[command] || 1;
-        }
-    
-        document.addEventListener('DOMContentLoaded', () => {
-            showOptions();
-        });
-    </script>
-    
+        </script>
 </body>
 </html>
