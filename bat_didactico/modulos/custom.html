@@ -7,7 +7,7 @@
     <title>Generador de BAT</title>
     <link rel="icon" type="ico/png" href="../cmd.png">
     <style>
-        body {
+         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
@@ -161,7 +161,7 @@
 
         .code-line {
             position: relative;
-            color: #ffffff;
+            color: #000000;
             opacity: 0;
             animation: fadeIn 0.5s forwards;
         }
@@ -230,18 +230,18 @@
         .card .ver-mas:hover {
             background-color: #4b6eae;
         }
-
-         /* Estilos para la animación de escritura */
-    @keyframes typing {
-        from {
-            width: 0;
+         /* Estilos para la animación de línea */
+         .line-animation {
+            position: relative;
+            height: 2px;
+            background-color: #007bff;
+            animation: grow 0.3s ease-out;
         }
-    }
-    .output-line {
-        overflow: hidden;
-        white-space: nowrap;
-        animation: typing 1s steps(40, end);
-    }
+
+        @keyframes grow {
+            from { width: 0; }
+            to { width: 100%; }
+        }
     </style>
 </head>
 
@@ -405,93 +405,81 @@
 
         const findstrOptions = [
             {
-                name: "/b",
-                params: [
-                    { name: "Búsqueda literal", placeholder: "Escribe la cadena de búsqueda literal" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/b", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "/e",
-                params: [
-                    { name: "Patrón de expresión regular", placeholder: "Escribe el patrón de expresión regular" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/e", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "/l",
-                params: [
-                    { name: "Lista de archivos", placeholder: "Escribe la lista de archivos" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/l", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "/r",
-                params: [
-                    { name: "Cadena recursiva", placeholder: "Escribe la cadena de búsqueda recursiva" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/r", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "/s",
-                params: [
-                    { name: "Cadena simple", placeholder: "Escribe la cadena de búsqueda simple" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/s", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "/i",
-                params: [
-                    { name: "Cadena sin distinción", placeholder: "Escribe la cadena de búsqueda sin distinción" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/i", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "/x",
-                params: [
-                    { name: "Líneas que no coinciden", placeholder: "Escribe la cadena de búsqueda para líneas que no coinciden" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/x", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "/v",
-                params: [
-                    { name: "Líneas que no contienen", placeholder: "Escribe la cadena de búsqueda para líneas que no contienen" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/v", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "/n",
-                params: [
-                    { name: "Línea con número", placeholder: "Escribe la cadena de búsqueda para líneas con número" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/n", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "/m",
-                params: [
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/m", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "/o",
-                params: [
-                    { name: "Caracteres antes y después", placeholder: "Escribe la cadena de búsqueda para caracteres antes y después" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/o", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "/p",
-                params: [
-                    { name: "Longitud de línea", placeholder: "Escribe la cadena de búsqueda para longitud de línea" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "/p", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             },
             {
-                name: "No aplica",
-                params: [
-                    { name: "Cadena de búsqueda", placeholder: "Escribe la cadena de búsqueda" },
-                    { name: "Archivo(s)", placeholder: "Especifica el archivo o archivos" }
+                name: "No aplica", params: [
+                    { name: "Cadena de busqueda", placeholder: "Digita la cadena de busqueda" },
+                    { name: "Archivo(s)", placeholder: "Los archivos blabla" }
                 ]
             }
         ];
@@ -1004,234 +992,229 @@
         }
 
         function generateBat() {
-            const selectedCommands = Array.from(document.getElementById('command').selectedOptions).map(option => option.value);
-            const outputDiv = document.getElementById('output');
-            let batScript = '';
+        const selectedCommands = Array.from(document.getElementById('command').selectedOptions).map(option => option.value);
+        const outputDiv = document.getElementById('output');
+        let batScript = '';
 
-            selectedCommands.forEach(selectedCommand => {
-                const mainOptionSelect = document.querySelector(`select[data-command="${selectedCommand}"]`);
-                const mainOption = mainOptionSelect.value;
+        selectedCommands.forEach(selectedCommand => {
+            const mainOptionSelect = document.querySelector(`select[data-command="${selectedCommand}"]`);
+            const mainOption = mainOptionSelect.value;
 
-                if (!mainOption) {
-                    alert('Por favor, selecciona un parámetro principal');
+            if (!mainOption) {
+                alert('Por favor, selecciona un parámetro principal');
+                return;
+            }
+
+            let commandString = `@echo off \n` + `${selectedCommand}`;
+
+            if (selectedCommand === 'netsh') {
+                const subOptionSelect = document.querySelector(`select[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                const subOption = subOptionSelect.value;
+
+                if (!subOption) {
+                    alert('Por favor, selecciona un sub-parámetro');
                     return;
                 }
 
-                let commandString = `${selectedCommand}`;
+                commandString += ` ${mainOption} ${subOption}`;
 
-                if (selectedCommand === 'netsh') {
-                    const subOptionSelect = document.querySelector(`select[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
-                    const subOption = subOptionSelect.value;
-
-                    if (!subOption) {
-                        alert('Por favor, selecciona un sub-parámetro');
-                        return;
+                const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"][data-sub-option="${subOption}"]`);
+                paramsInputs.forEach(input => {
+                    const paramName = input.dataset.param;
+                    const paramValue = input.value;
+                    if (paramValue) {
+                        commandString += ` ${paramName}=${paramValue}`;
                     }
+                });
+                commandString += '\n'+ "pause";
+            } else if (selectedCommand === 'ipconfig') {
+                commandString += ` ${mainOption}`;
+                commandString += '\n'+ "pause";
+            } else if (selectedCommand === 'icacls') {
+                const rutaInput = document.querySelector(`input[data-command="${selectedCommand}"][data-param="ruta"]`).value;
+                if (!rutaInput) {
+                    alert('Por favor, introduce una ruta');
+                    return;
+                }
+                commandString = ` "${rutaInput}" ${mainOption}`;
 
-                    commandString += ` ${mainOption} ${subOption}`;
-
-                    const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"][data-sub-option="${subOption}"]`);
-                    paramsInputs.forEach(input => {
-                        const paramName = input.dataset.param;
-                        const paramValue = input.value;
-                        if (paramValue) {
-                            commandString += ` ${paramName}=${paramValue}`;
+                const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                let user = '';
+                let permissions = '';
+                paramsInputs.forEach(input => {
+                    const paramName = input.dataset.param;
+                    const paramValue = input.value;
+                    if (paramValue) {
+                        if (mainOption === '/remove') {
+                            commandString = `icacls ${rutaInput} ${mainOption} ${paramValue}`;
+                        } else if (mainOption === '/grant' || mainOption === '/deny') {
+                            if (paramName === 'user') {
+                                user = paramValue;
+                            } else if (paramName === 'permissions') {
+                                permissions = paramValue;
+                            }
+                            commandString = `icacls ${rutaInput} ${mainOption} ${user}:${permissions}`;
+                        } else if (mainOption === '/inheritance') {
+                            commandString = `icacls ${rutaInput} ${mainOption}:${paramValue}`;
                         }
-                    });
-                } else if (selectedCommand === 'ipconfig') {
-                    commandString += ` ${mainOption}`;
-                } else if (selectedCommand === 'icacls') {
-                    const rutaInput = document.querySelector(`input[data-command="${selectedCommand}"][data-param="ruta"]`).value;
-                    if (!rutaInput) {
-                        alert('Por favor, introduce una ruta');
-                        return;
                     }
-                    commandString += ` "${rutaInput}" ${mainOption}`;
+                });
+                commandString += '\n'+ "pause";
+            } else if (selectedCommand === 'logman') {
+                commandString += ` ${mainOption}`;
 
-                    const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
-                    let user = '';
-                    let permissions = '';
-                    paramsInputs.forEach(input => {
-                        const paramName = input.dataset.param;
-                        const paramValue = input.value;
-                        if (paramValue) {
-                            if (mainOption === '/remove') {
-                                commandString = `icacls ${rutaInput} ${mainOption} ${paramValue}`;
-                            } else if (mainOption === '/grant' || mainOption === '/deny') {
-                                if (paramName === 'user') {
-                                    user = paramValue;
-                                } else if (paramName === 'permissions') {
-                                    permissions = paramValue;
-                                }
-                                commandString = `icacls ${rutaInput} ${mainOption} ${user}:${permissions}`;
-                            } else if (mainOption === '/inheritance') {
-                                commandString = `icacls ${rutaInput} ${mainOption}:${paramValue}`;
-                            }
-                        }
-                    });
-                } else if (selectedCommand === 'logman') {
-                    commandString += ` ${mainOption}`;
-
-                    const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
-                    let nombre = '';
-                    let contadores = '';
-                    let intervalo = '';
-                    let ubicacion = '';
-                    let subparamVacio = false;
-                    paramsInputs.forEach(input => {
-                        const paramName = input.dataset.param;
-                        const paramValue = input.value.trim();
-                        if (!paramValue) {
-                            subparamVacio = true;
-                        }
-                        if (paramValue) {
-                            commandString += ` ${paramValue}`;
-                            if (mainOption === 'stop' || mainOption === 'delete' || mainOption === 'start' || mainOption === 'query') {
-                                commandString = `logman ${mainOption} ${paramValue}`;
-                            } else if (mainOption === 'create counter') {
-                                if (paramName === 'Nombre') {
-                                    nombre = paramValue;
-                                } else if (paramName === 'Contadores de rendimiento (-c)') {
-                                    contadores = paramValue;
-                                } else if (paramName === 'Intervalo de muestreo (-si)') {
-                                    intervalo = paramValue;
-                                } else if (paramName === 'Ubicación (-o)') {
-                                    ubicacion = paramValue;
-                                }
-                                commandString = `logman ${mainOption} ${nombre} -c ${contadores} si ${intervalo} -o ${ubicacion}`;
-                            }
-                        }
-                    });
-                    if (subparamVacio) {
-                        alert('Por favor, completa todos los sub-parámetros para logman');
-                        return;
+                const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                let nombre = '';
+                let contadores = '';
+                let intervalo = '';
+                let ubicacion = '';
+                let subparamVacio = false;
+                paramsInputs.forEach(input => {
+                    const paramName = input.dataset.param;
+                    const paramValue = input.value.trim();
+                    if (!paramValue) {
+                        subparamVacio = true;
                     }
-                } else if (selectedCommand === 'findstr') {
-                    commandString += ` ${mainOption}`;
-                    const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
-                    let subparamVacio = false;
-
-                    paramsInputs.forEach(input => {
-                        const paramName = input.dataset.param;
-                        const paramValue = input.value.trim();
-                        if (!paramValue) {
-                            subparamVacio = true;
-                        }
-                        if (paramValue) {
-                            if (mainOption === 'No aplica') {
-                                commandString = `findstr ${paramValue}`;
+                    if (paramValue) {
+                        commandString += ` ${paramValue}`;
+                        if (mainOption === 'stop' || mainOption === 'delete' || mainOption === 'start' || mainOption === 'query') {
+                            commandString = `logman ${mainOption} ${paramValue}`;
+                        } else if (mainOption === 'create counter') {
+                            if (paramName === 'Nombre') {
+                                nombre = paramValue;
+                            } else if (paramName === 'Contadores de rendimiento (-c)') {
+                                contadores = paramValue;
+                            } else if (paramName === 'Intervalo de muestreo (-si)') {
+                                intervalo = paramValue;
+                            } else if (paramName === 'Ubicación (-o)') {
+                                ubicacion = paramValue;
                             }
-                            commandString += ` ${paramValue}`;
+                            commandString = `logman ${mainOption} ${nombre} -c ${contadores} si ${intervalo} -o ${ubicacion}`;
                         }
-                    });
-                    if (subparamVacio) {
-                        alert('Por favor, completa todos los sub-parámetros para findstr');
-                        return;
                     }
-                } else if (selectedCommand === 'schtasks') {
-                    commandString += ` ${mainOption}`;
-                    const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
-                    let mandatoryFieldsEmpty = false;
+                });
+                if (subparamVacio) {
+                    alert('Por favor, completa todos los sub-parámetros para logman');
+                    return;
+                }
+                commandString += '\n'+ "pause";
+            } else if (selectedCommand === 'findstr') {
+                commandString += ` ${mainOption}`;
+                const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                let subparamVacio = false;
 
-                    paramsInputs.forEach(input => {
-                        const paramName = input.dataset.param;
-                        const paramValue = input.value.trim();
-                        const paramType = input.type;
-                        const isMandatory = input.dataset.mandatory === "true";
+                paramsInputs.forEach(input => {
+                    const paramName = input.dataset.param;
+                    const paramValue = input.value.trim();
+                    if (!paramValue) {
+                        subparamVacio = true;
+                    }
+                    if (paramValue) {
+                        if (mainOption === 'No aplica') {
+                            commandString = `findstr ${paramValue}`;
+                        }
+                        commandString += ` ${paramValue}`;
+                    }
+                });
+                if (subparamVacio) {
+                    alert('Por favor, completa todos los sub-parámetros para findstr');
+                    return;
+                }
+                commandString += '\n'+ "pause";
+            } else if (selectedCommand === 'schtasks') {
+                commandString += ` ${mainOption}`;
+                const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                let mandatoryFieldsEmpty = false;
 
-                        if (paramType === 'checkbox') {
-                            if (input.checked) {
-                                commandString += ` ${paramName}`;
-                            }
-                        } else {
-                            if (paramValue) {
+                paramsInputs.forEach(input => {
+                    const paramName = input.dataset.param;
+                    const paramValue = input.value.trim();
+                    const paramType = input.type;
+                    const isMandatory = input.dataset.mandatory === "true";
+
+                    if (paramType === 'checkbox') {
+                        if (input.checked) {
+                            commandString += ` ${paramName}`;
+                        }
+                    } else {
+                        if (paramValue) {
+                            commandString += ` ${paramName} ${paramValue}`;
+                        } else if (isMandatory) {
+                            mandatoryFieldsEmpty = true;
+                        }
+                    }
+                });
+
+                if (mandatoryFieldsEmpty) {
+                    alert("Por favor, completa todos los campos obligatorios.");
+                    return;
+                }
+                commandString += '\n'+ "pause";
+            } else if (selectedCommand === 'tasklist') {
+                commandString += ` ${mainOption}`;
+                const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
+                let mandatoryFieldsEmpty = false;
+                let combinableParams = [];
+                let formatParam = "";
+
+                paramsInputs.forEach(input => {
+                    const paramName = input.dataset.param;
+                    const paramValue = input.value.trim();
+                    const paramType = input.type;
+                    const isMandatory = input.dataset.mandatory === "true";
+
+                    if (paramType === 'checkbox') {
+                        if (input.checked) {
+                            combinableParams.push(paramName);
+                        }
+                    } else {
+                        if (paramValue) {
+                            if (paramName === "Formato de salida") {
+                                formatParam = ` ${paramValue}`;
+                            } else if (paramName === "Filtro") {
+                                commandString += ` ${paramValue}`;
+                            } else if (paramName === "Equipo") {
+                                commandString += ` ${paramValue}`;
+                            } else {
                                 commandString += ` ${paramName} ${paramValue}`;
-                            } else if (isMandatory) {
-                                mandatoryFieldsEmpty = true;
                             }
+                        } else if (isMandatory) {
+                            mandatoryFieldsEmpty = true;
                         }
-                    });
-
-                    if (mandatoryFieldsEmpty) {
-                        alert("Por favor, completa todos los campos obligatorios.");
-                        return;
                     }
-                } else if (selectedCommand === 'tasklist') {
-                    commandString += ` ${mainOption}`;
-                    const paramsInputs = document.querySelectorAll(`input[data-command="${selectedCommand}"][data-main-option="${mainOption}"]`);
-                    let mandatoryFieldsEmpty = false;
-                    let combinableParams = [];
-                    let formatParam = "";
+                });
 
-                    paramsInputs.forEach(input => {
-                        const paramName = input.dataset.param;
-                        const paramValue = input.value.trim();
-                        const paramType = input.type;
-                        const isMandatory = input.dataset.mandatory === "true";
+                combinableParams.forEach(param => {
+                    commandString += ` ${param}`;
+                });
 
-                        if (paramType === 'checkbox') {
-                            if (input.checked) {
-                                combinableParams.push(paramName);
-                            }
-                        } else {
-                            if (paramValue) {
-                                if (paramName === "Formato de salida") {
-                                    formatParam = ` ${paramValue}`;
-                                } else if (paramName === "Filtro") {
-                                    commandString += ` ${paramValue}`;
-                                } else if (paramName === "Equipo") {
-                                    commandString += ` ${paramValue}`;
-                                } else {
-                                    commandString += ` ${paramName} ${paramValue}`;
-                                }
-                            } else if (isMandatory) {
-                                mandatoryFieldsEmpty = true;
-                            }
-                        }
-                    });
-
-                    combinableParams.forEach(param => {
-                        commandString += ` ${param}`;
-                    });
-
-                    if (formatParam) {
-                        commandString += formatParam;
-                    }
-
-                    if (mandatoryFieldsEmpty) {
-                        alert("Por favor, completa todos los campos obligatorios.");
-                        return;
-                    }
-                } else if (selectedCommand === 'color') {
-                    const fontColorSelect = document.querySelector(`select[data-command="${selectedCommand}"][data-param="colorFuente"]`);
-                    const bgColorSelect = document.querySelector(`select[data-command="${selectedCommand}"][data-param="colorFondo"]`);
-
-                    const fontColorValue = fontColorSelect.value;
-                    const bgColorValue = bgColorSelect.value;
-
-                    commandString += ` ${fontColorValue}${bgColorValue}`;
+                if (formatParam) {
+                    commandString += formatParam;
                 }
 
-                batScript += commandString + '\n';
-            });
+                if (mandatoryFieldsEmpty) {
+                    alert("Por favor, completa todos los campos obligatorios.");
+                    return;
+                }
+                commandString += '\n'+ "pause";
+            } else if (selectedCommand === 'color') {
+                const fontColorSelect = document.querySelector(`select[data-command="${selectedCommand}"][data-param="colorFuente"]`);
+                const bgColorSelect = document.querySelector(`select[data-command="${selectedCommand}"][data-param="colorFondo"]`);
 
-            outputDiv.innerHTML = ''; // Limpiar el contenido previo
+                const fontColorValue = fontColorSelect.value;
+                const bgColorValue = bgColorSelect.value;
+                commandString += ` ${fontColorValue}${bgColorValue} \n`;
+                commandString += "pause" +'\n';
+            }
 
-            // Separar el script en líneas y mostrarlas con animación
-            const lines = batScript.split('\n').filter(line => line.trim() !== '');
-            lines.forEach((line, index) => {
-                setTimeout(() => {
-                    const lineDiv = document.createElement('div');
-                    lineDiv.textContent = line;
-                    lineDiv.classList.add('output-line');
-                    outputDiv.appendChild(lineDiv);
-                    outputDiv.scrollTop = outputDiv.scrollHeight; // Scroll automático hacia abajo
-                }, index * 500); // Intervalo de 1 segundo entre cada línea (ajustable)
-            });
+            batScript += commandString + '\n';
+        });
+
+        outputDiv.textContent = batScript;
 
             const downloadLink = document.getElementById('downloadLink');
             const downloadButton = document.getElementById('downloadButton');
-
+            
             // Si no hay comandos generados, oculta el enlace de descarga
             if (batScript.trim() === '') {
                 downloadLink.style.display = 'none';
@@ -1240,7 +1223,7 @@
                 downloadButton.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(batScript);
                 downloadLink.style.display = 'block';
             }
-        }
+    }
 
         function getModuleNumber(command) {
             const modules = {
