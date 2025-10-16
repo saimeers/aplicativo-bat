@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo MSDT</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+         body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ded0d07e;
+        }
+
+        .banner {
+            background-color: #f7f7f7;
+            color: #333;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .banner .logo {
+            height: 40px;
+            padding: 0 15px;
+        }
+
+        .logomenu {
+            display: flex;
+            align-items: center;
+        }
+
+        .logos {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .logos img {
+            margin-right: 10px;
+        }
+
+        .logos img:last-child {
+            margin-right: 0;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 12px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Estilos adicionales específicos para el módulo MSDT */
+        .example-selector {
+            margin-bottom: 20px;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .example-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .example-button:hover {
+            background-color: #555;
+        }
+
+        .code-block {
+            margin-top: 20px;
+        }
+
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .command-description {
+            margin-bottom: 20px;
+        }
+
+        .parameter-list {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list h3 {
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .parameter-list ul li {
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(odd) {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(even) {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* Estilos específicos para la salida del ejemplo */
+        .example-output {
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .color-4A {
+            background-color: #ff3300; /* Fondo verde */
+            color: #00ff22; /* Texto blanco */
+        }
+
+        .color-90 {
+            background-color: #2089f3; /* Fondo amarillo */
+            color: #000000; /* Texto oscuro */
+        }
+
+        .color-89 {
+            background-color: #4e4f50; /* Fondo azul */
+            color: #4489c1; /* Texto blanco */
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="dropdown">
+            <div class="logo">
+                <img src="../logo_modulos.png" alt="Logo" class="logo">
+            </div>
+            <div class="dropdown-content">
+                <a href="/aplicativo-bat/bat_didactico/index.html">Inicio</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo1.html">Netsh</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo2.html">Ipconfig</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo3.html">Icacls</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo4.html">Logman</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo5.html">Findstr</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo7.html">Schtasks</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo8.html">Tasklist</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/custom.html">Generar BAT</a>
+            </div>
+        </div>
+        <div class="logos">
+            <img src="../ufps.png" alt="Logo" class="logo">
+            <img src="../logo.png" alt="Logo" class="logo">
+        </div>
+    </div>
+    <div class="container">
+        <div class="card left explanation-card">
+            <h2><code>COLOR</code></h2>
+            <p>
+                Cambia los colores de primer plano y de fondo en la ventana del símbolo del sistema de la sesión actual. Si se usa sin parámetros, color restaura los colores predeterminados de fondo y de primer plano de la ventana del símbolo del sistema.
+            </p>
+            <div class="divider"></div>
+            <h2>Sintaxis</h2>
+            <pre class="code-block">color [attr]</pre>
+            <div class="divider"></div>
+            <h2>Parámetros</h2>
+            <div class="parameter-list">
+               
+                <ul>
+                    <li>Especificar uno o dos dígitos hexadecimales. La primera se usa como color de primer plano y la segunda se usa como color de fondo. Si especifica dos dígitos hexadecimales, no use caracteres de espacio entre ellos.</li>
+                    <li>Si especifica el mismo valor para dos dígitos hexadecimales, ERRORLEVEL se establece en 1 y no se realiza ningún cambio en el primer plano o en el color de fondo.</li>
+                    <ul>
+                        <p><CODE>attr</CODE>: Especifique el atributo de color de la salida de la consola. </p>
+                        <li style="background-color: #000000; color: white;">0 - Negro</li>
+                        <li style="background-color: #007bff; color: white;">1 - Azul</li>
+                        <li style="background-color: #4CAF50; color: white;">2 - Verde</li>
+                        <li style="background-color: #00bcd4; color: black;">3 - Aqua</li>
+                        <li style="background-color: #ff0000; color: white;">4 - Rojo</li>
+                        <li style="background-color: #9c27b0; color: white;">5 - Púrpura</li>
+                        <li style="background-color: #ffc107; color: black;">6 - Amarillo</li>
+                        <li style="background-color: #ffffff; color: black;">7 - Blanco</li>
+                        <li style="background-color: #9e9e9e; color: white;">8 - Gris</li>
+                        <li style="background-color: #03a9f4; color: black;">9 - Azul claro</li>
+                        <li style="background-color: #8bc34a; color: black;">a - Verde claro</li>
+                        <li style="background-color: #00bcd4; color: black;">b - Aguamarina claro</li>
+                        <li style="background-color: #f44336; color: white;">c - Rojo claro</li>
+                        <li style="background-color: #9c27b0; color: white;">d - Púrpura claro</li>
+                        <li style="background-color: #ffc107; color: black;">e - Amarillo claro</li>
+                        <li style="background-color: #ffffff; color: black;">f - Blanco brillante</li>
+                    </ul>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="card right" id="exampleCard">
+            <div class="example-selector">
+                <h3>Selecciona un ejemplo:</h3>
+                <div class="divider"></div>
+                <div class="example-buttons">
+                    <button class="example-button" onclick="selectExample(1)">1</button>
+                    <button class="example-button" onclick="selectExample(2)">2</button>
+                    <button class="example-button" onclick="selectExample(3)">3</button>
+                </div>
+            </div>
+            <div class="card example-card">
+                <div class="command-description" id="exampleDescription">
+                    <p>Selecciona un ejemplo para ver el cambio de consola.</p>
+                </div>
+                <div class="divider"></div>
+                <h2>Entrada</h2>
+                <pre id="exampleInput" class="code-block example-input">
+                </pre>
+                <div class="divider"></div>
+                <h2>Salida</h2>
+                <pre id="exampleOutput" class="code-block example-output">
+                </pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        function selectExample(exampleNumber) {
+            let inputText, outputText, description;
+
+            switch (exampleNumber) {
+                case 1:
+                    inputText = `color 4A`;
+                    outputText = `color 4A \n`;
+                    changeOutputColor('4','A');
+                    break;
+                case 2:
+                    inputText = `color 90`;
+                    outputText = `color 90 \n`;
+                    changeOutputColor('9','0');
+                    break;
+                case 3:
+                    inputText = `color 89`;
+                    outputText = `color 89 \n`;
+                    changeOutputColor('8','9');
+                    break;
+                default:
+                    inputText = '';
+                    outputText = '';
+                    description = '';
+            }
+
+            document.getElementById('exampleInput').textContent = inputText;
+            document.getElementById('exampleOutput').textContent = outputText;
+        }
+
+        function changeOutputColor(colorFondo, colorFuente) {
+            const exampleOutput = document.getElementById('exampleOutput');
+            exampleOutput.className = 'code-block example-output';
+            exampleOutput.classList.remove('color-4A', 'color-90', 'color-89'); // Limpiar clases previas
+            exampleOutput.classList.add(`color-${colorFondo}${colorFuente}`);
+        }
+    </script>
+</body>
+</html>

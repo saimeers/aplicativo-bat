@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Netsh</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ded0d07e;
+        }
+
+        .banner {
+            background-color: #f7f7f7;
+            color: #333;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .banner .logo {
+            height: 40px;
+            padding: 0 15px;
+        }
+
+        .logomenu {
+            display: flex;
+            align-items: center;
+        }
+
+        .logos {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .logos img {
+            margin-right: 10px;
+        }
+
+        .logos img:last-child {
+            margin-right: 0;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 12px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Estilos adicionales específicos para el módulo Netsh */
+        .example-selector {
+            margin-bottom: 20px;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .example-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .example-button:hover {
+            background-color: #555;
+        }
+
+        .code-block {
+            margin-top: 20px;
+        }
+
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .command-description {
+            margin-bottom: 20px;
+        }
+
+        .parameter-list {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list h3 {
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .parameter-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .parameter-list ul li {
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(odd) {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li:nth-child(even) {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .parameter-list ul li.add-profile {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="dropdown">
+            <div class="logo">
+                <img src="../logo_modulos.png" alt="Logo" class="logo">
+            </div>
+            <div class="dropdown-content">
+                <a href="/aplicativo-bat/bat_didactico/index.html">Inicio</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo2.html">Ipconfig</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo3.html">Icacls</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo4.html">Logman</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo5.html">Findstr</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo6.html">Color</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo7.html">Schtasks</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/modulo8.html">Tasklist</a>
+                <a href="/aplicativo-bat/bat_didactico/modulos/custom.html">Generar BAT</a>
+            </div>
+        </div>
+        <div class="logos">
+            <img src="../ufps.png" alt="Logo" class="logo">
+
+            <img src="../logo.png" alt="Logo" class="logo">
+        </div>
+    </div>
+    <div class="container">
+        <div class="card left explanation-card">
+            <h2><code>NETSH</code></h2>
+            <p>
+                Es una herramienta de línea de comandos en los sistemas operativos Windows que se utiliza para configurar y gestionar varios aspectos de la red y la configuración del sistema.
+            </p>
+            <p>
+                El nombre "Netsh" es una abreviatura de "Network Shell". Puedes utilizar "Netsh" para realizar una amplia variedad de tareas relacionadas con la configuración y el diagnóstico de la red en Windows.
+            </p>
+            <div class="divider"></div>
+            <h2>Sintaxis</h2>
+            <pre class="code-block">
+netsh [-a Aliasfile ] [-c Context ] [-r Remotecomputer ] [-u [ domainname \username ]] [-p Password | [{NetshCommand | -f scriptfile}]
+            </pre>
+            <div class="divider"></div>
+            <h2>Parámetros</h2>
+            <div class="parameter-list">
+                <p>En esta sección se muestran los parámetros comunes utilizados con <code>netsh</code>, junto con sus descripciones correspondientes.</p>
+                <ul>
+                    <li><strong>interface</strong>
+                        <ul>
+                            <li><code>show interface</code>: Muestra una lista de todas las interfaces de red en el sistema.</li>
+                            <li><code>set interface</code>: Configura el estado de una interfaz de red (activada o desactivada).</li>
+                            <li><code>ip set address</code>: Configura la dirección IP de una interfaz de red.</li>
+                            <li><code>ipv4 set address</code>: Configura la dirección IPv4 de una interfaz de red.</li>
+                            <li><code>ipv4 set dnsservers</code>: Configura los servidores DNS de una interfaz de red.</li>
+                            <li><code>ipv4 add dnsservers</code>: Añade servidores DNS adicionales a una interfaz de red.</li>
+                        </ul>
+                    </li>
+                    <li><strong>wlan</strong>
+                        <ul>
+                            <li><code>show interfaces</code>: Muestra la configuración de las interfaces WLAN (Wi-Fi).</li>
+                            <li><code>show profiles</code>: Muestra una lista de todos los perfiles WLAN en el sistema.</li>
+                            <li><code>add profile</code>: Añade un nuevo perfil WLAN desde un archivo XML.</li>
+                            <li><code>delete profile</code>: Elimina un perfil WLAN especificado.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card right">
+            <div class="example-selector">
+                <h3>Selecciona un ejemplo:</h3>
+                <div class="divider"></div>
+                <div class="example-buttons">
+                    <button class="example-button" onclick="selectExample(1)">1</button>
+                    <button class="example-button" onclick="selectExample(2)">2</button>
+                    <button class="example-button" onclick="selectExample(3)">3</button>
+                </div>
+            </div>
+            <div class="card example-card">
+                <div class="command-description" id="exampleDescription">
+                    <p>Selecciona un ejemplo para ver la descripción y el comando correspondiente.</p>
+                </div>
+                <div class="divider"></div>
+                <h2>Entrada</h2>
+                <pre id="exampleInput" class="code-block example-input">
+                </pre>
+                <div class="divider"></div>
+                <h2>Salida</h2>
+                <pre id="exampleOutput" class="code-block example-output">
+                </pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        function selectExample(exampleNumber) {
+            let inputText, outputText, description;
+
+            switch (exampleNumber) {
+                case 1:
+                    inputText = `netsh interface ip show config`;
+                    outputText = `"Configuration for interface ""Ethernet""
+    DHCP enabled:                         No
+    IP Address:                           192.168.1.100
+    Subnet Prefix:                        192.168.1.0/24 (mask 255.255.255.0)
+    Default Gateway:                      192.168.1.1
+    Gateway Metric:                       0
+    InterfaceMetric:                      25
+
+Configuration for interface ""Wi-Fi""
+    DHCP enabled:                         Yes
+    IP Address:                           192.168.0.101
+    Subnet Prefix:                        192.168.0.0/24 (mask 255.255.255.0)
+    Default Gateway:                      192.168.0.1
+    Gateway Metric:                       0
+    InterfaceMetric:                      25`;
+                    description = `
+                    <p>Muestra la configuración actual de las interfaces de red en el sistema, incluyendo detalles como dirección IP, máscara de subred y puerta de enlace.</p>`;
+                    break;
+                case 2:
+                    inputText = `netsh wlan show profiles`;
+                    outputText = `"Profiles on interface Wi-Fi:
+
+Group policy profiles (read only)
+---------------------------------
+    <None>
+
+User profiles
+-------------
+    All User Profile     : Network1
+    All User Profile     : Network2
+    All User Profile     : Network3`;
+                    description = `
+                    <p>Muestra todos los perfiles WLAN configurados en el sistema, tanto de política de grupo como de usuario.</p>`;
+                    break;
+                case 3:
+                    inputText = `netsh interface set interface name="Ethernet" admin=disabled`;
+                    outputText = `Ok.`;
+                    description = `
+                    <p>Deshabilita la interfaz de red especificada llamada "Ethernet".</p>`;
+                    break;
+                default:
+                    inputText = '';
+                    outputText = '';
+                    description = '';
+            }
+
+            document.getElementById('exampleInput').textContent = inputText;
+            document.getElementById('exampleOutput').textContent = outputText;
+            document.getElementById('exampleDescription').innerHTML = description;
+        }
+    </script>
+</body>
+</html>
